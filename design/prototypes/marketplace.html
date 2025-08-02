@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aha - 应用广场</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'SF Pro Display', system-ui, -apple-system, sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .neon-glow {
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+        
+        .device-frame {
+            width: 375px;
+            height: 812px;
+            background: #000;
+            border-radius: 45px;
+            padding: 8px;
+            margin: 0 auto;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        
+        .device-screen {
+            width: 100%;
+            height: 100%;
+            border-radius: 37px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .status-bar {
+            height: 44px;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+        }
+        
+        .home-indicator {
+            width: 134px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 3px;
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .app-card {
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+        }
+        
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.2);
+        }
+        
+        .featured-card {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .featured-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(0, 255, 255, 0.1), rgba(138, 43, 226, 0.1));
+            z-index: 1;
+        }
+        
+        .featured-card > * {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .category-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .category-btn.active {
+            background: linear-gradient(90deg, #06b6d4, #8b5cf6);
+            transform: scale(1.05);
+        }
+        
+        .search-bar {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .search-bar:focus-within {
+            border-color: rgba(0, 255, 255, 0.5);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        }
+        
+        .stats-badge {
+            background: linear-gradient(90deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.2));
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        
+        .price-tag {
+            background: linear-gradient(90deg, #f59e0b, #f97316);
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            right: 4px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 2px;
+            height: 40px;
+            background: linear-gradient(to bottom, rgba(0, 255, 255, 0.5), rgba(138, 43, 226, 0.5));
+            border-radius: 1px;
+            animation: scrollGlow 2s ease-in-out infinite;
+        }
+        
+        @keyframes scrollGlow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-black min-h-screen flex items-center justify-center p-4">
+    <!-- Device Frame -->
+    <div class="device-frame">
+        <div class="device-screen gradient-bg relative overflow-hidden">
+            <!-- Status Bar -->
+            <div class="status-bar">
+                <div class="flex items-center">
+                    <i class="fas fa-arrow-left text-white text-lg mr-3 cursor-pointer"></i>
+                    <div class="text-white text-sm font-medium">9:41</div>
+                </div>
+                <div class="flex items-center space-x-1">
+                    <i class="fas fa-signal text-white text-xs"></i>
+                    <i class="fas fa-wifi text-white text-xs"></i>
+                    <div class="w-6 h-3 border border-white rounded-sm">
+                        <div class="w-4 h-1.5 bg-white rounded-sm m-0.5"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="flex flex-col h-full pt-16 pb-8">
+                <!-- Header -->
+                <div class="px-4 mb-4">
+                    <h1 class="text-xl font-bold text-white mb-3">
+                        <i class="fas fa-store text-blue-400 mr-2"></i>
+                        应用广场
+                    </h1>
+                    
+                    <!-- Search Bar -->
+                    <div class="search-bar rounded-2xl p-3 flex items-center">
+                        <i class="fas fa-search text-gray-400 mr-3"></i>
+                        <input 
+                            type="text" 
+                            placeholder="搜索应用、开发者..." 
+                            class="flex-1 bg-transparent text-white placeholder-gray-500 outline-none"
+                        >
+                        <button class="text-cyan-400">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Categories -->
+                <div class="px-4 mb-4">
+                    <div class="flex space-x-2 overflow-x-auto pb-2">
+                        <button class="category-btn active px-4 py-2 rounded-full text-white text-sm font-medium whitespace-nowrap">
+                            🔥 热门
+                        </button>
+                        <button class="category-btn px-4 py-2 rounded-full text-gray-400 text-sm font-medium whitespace-nowrap glass-effect">
+                            🍼 育儿
+                        </button>
+                        <button class="category-btn px-4 py-2 rounded-full text-gray-400 text-sm font-medium whitespace-nowrap glass-effect">
+                            💼 商务
+                        </button>
+                        <button class="category-btn px-4 py-2 rounded-full text-gray-400 text-sm font-medium whitespace-nowrap glass-effect">
+                            🎨 创意
+                        </button>
+                        <button class="category-btn px-4 py-2 rounded-full text-gray-400 text-sm font-medium whitespace-nowrap glass-effect">
+                            📚 教育
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Content Area -->
+                <div class="flex-1 overflow-y-auto relative">
+                    <div class="scroll-indicator"></div>
+                    
+                    <!-- Featured Section -->
+                    <div class="px-4 mb-6">
+                        <h3 class="text-white font-medium mb-3">今日推荐</h3>
+                        <div class="featured-card rounded-2xl p-4">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-600 rounded-2xl flex items-center justify-center">
+                                    <i class="fas fa-baby text-white text-xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center space-x-2 mb-1">
+                                        <h4 class="text-white font-semibold">宝宝营养计算器</h4>
+                                        <div class="stats-badge px-2 py-1 rounded-full">
+                                            <span class="text-green-400 text-xs font-medium">⭐ 4.8</span>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-400 text-sm mb-2">智能计算婴幼儿营养需求</p>
+                                    <div class="flex items-center justify-between">
+                                        <div class="price-tag px-2 py-1 rounded text-white text-xs font-medium">
+                                            ¥0.5/次
+                                        </div>
+                                        <div class="text-cyan-400 text-xs">2.1k 用户</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Hot Apps Grid -->
+                    <div class="px-4 mb-6">
+                        <h3 class="text-white font-medium mb-3">热门应用</h3>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="app-card glass-effect rounded-xl p-3">
+                                <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center mb-3">
+                                    <i class="fas fa-calculator text-white"></i>
+                                </div>
+                                <h4 class="text-white font-medium text-sm mb-1">理财助手</h4>
+                                <p class="text-gray-400 text-xs mb-2">智能投资建议</p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-cyan-400 text-xs">¥2.0/月</span>
+                                    <span class="text-yellow-400 text-xs">⭐ 4.6</span>
+                                </div>
+                            </div>
+                            
+                            <div class="app-card glass-effect rounded-xl p-3">
+                                <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-teal-500 rounded-xl flex items-center justify-center mb-3">
+                                    <i class="fas fa-leaf text-white"></i>
+                                </div>
+                                <h4 class="text-white font-medium text-sm mb-1">植物识别</h4>
+                                <p class="text-gray-400 text-xs mb-2">拍照识别植物</p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-green-400 text-xs">免费</span>
+                                    <span class="text-yellow-400 text-xs">⭐ 4.9</span>
+                                </div>
+                            </div>
+                            
+                            <div class="app-card glass-effect rounded-xl p-3">
+                                <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mb-3">
+                                    <i class="fas fa-heart text-white"></i>
+                                </div>
+                                <h4 class="text-white font-medium text-sm mb-1">健康管家</h4>
+                                <p class="text-gray-400 text-xs mb-2">健康数据记录</p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-cyan-400 text-xs">¥1.5/月</span>
+                                    <span class="text-yellow-400 text-xs">⭐ 4.7</span>
+                                </div>
+                            </div>
+                            
+                            <div class="app-card glass-effect rounded-xl p-3">
+                                <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center mb-3">
+                                    <i class="fas fa-utensils text-white"></i>
+                                </div>
+                                <h4 class="text-white font-medium text-sm mb-1">美食日记</h4>
+                                <p class="text-gray-400 text-xs mb-2">记录每日饮食</p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-cyan-400 text-xs">¥0.8/次</span>
+                                    <span class="text-yellow-400 text-xs">⭐ 4.5</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- New & Trending -->
+                    <div class="px-4 mb-6">
+                        <h3 class="text-white font-medium mb-3">新品上架</h3>
+                        <div class="space-y-3">
+                            <div class="app-card glass-effect rounded-xl p-3">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center">
+                                        <i class="fas fa-brain text-white"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex items-center space-x-2 mb-1">
+                                            <h4 class="text-white font-medium text-sm">记忆训练师</h4>
+                                            <div class="bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">NEW</div>
+                                        </div>
+                                        <p class="text-gray-400 text-xs mb-1">科学提升记忆力</p>
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-cyan-400 text-xs">¥3.0/月</span>
+                                            <span class="text-gray-400 text-xs">今日上线</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="app-card glass-effect rounded-xl p-3">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center">
+                                        <i class="fas fa-chart-line text-white"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex items-center space-x-2 mb-1">
+                                            <h4 class="text-white font-medium text-sm">股票分析器</h4>
+                                            <div class="bg-orange-500 text-white text-xs px-2 py-0.5 rounded-full">HOT</div>
+                                        </div>
+                                        <p class="text-gray-400 text-xs mb-1">AI智能选股建议</p>
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-cyan-400 text-xs">¥5.0/月</span>
+                                            <span class="text-yellow-400 text-xs">⭐ 4.3</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Developer Spotlight -->
+                    <div class="px-4 mb-6">
+                        <h3 class="text-white font-medium mb-3">开发者聚焦</h3>
+                        <div class="glass-effect rounded-xl p-4">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <div class="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full flex items-center justify-center">
+                                    <span class="text-white font-bold text-sm">李</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-white font-medium text-sm">李小明</div>
+                                    <div class="text-gray-400 text-xs">金牌工匠 · 12个应用</div>
+                                </div>
+                                <button class="bg-gradient-to-r from-cyan-500 to-purple-600 text-white px-3 py-1 rounded-full text-xs">
+                                    关注
+                                </button>
+                            </div>
+                            <p class="text-gray-300 text-sm mb-3">专注开发实用的生活工具应用，累计服务用户超过10万人次。</p>
+                            <div class="flex items-center space-x-4 text-xs text-gray-400">
+                                <span>⭐ 4.8 平均评分</span>
+                                <span>📱 128k 总下载</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bottom Action -->
+                <div class="px-4 pt-4">
+                    <button class="w-full bg-gradient-to-r from-cyan-500 to-purple-600 rounded-2xl py-3 text-white font-semibold neon-glow hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300">
+                        <i class="fas fa-plus mr-2"></i>我也要发布应用
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Home Indicator -->
+            <div class="home-indicator"></div>
+        </div>
+    </div>
+    
+    <script>
+        // Category switching
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all buttons
+                document.querySelectorAll('.category-btn').forEach(b => {
+                    b.classList.remove('active');
+                    b.classList.add('glass-effect', 'text-gray-400');
+                    b.classList.remove('text-white');
+                });
+                
+                // Add active class to clicked button
+                this.classList.add('active', 'text-white');
+                this.classList.remove('glass-effect', 'text-gray-400');
+            });
+        });
+        
+        // App card interactions
+        document.querySelectorAll('.app-card').forEach(card => {
+            card.addEventListener('click', function() {
+                // Add click animation
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+        
+        // Search functionality simulation
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('input', function() {
+            if (this.value.length > 0) {
+                this.parentElement.style.borderColor = 'rgba(0, 255, 255, 0.5)';
+            } else {
+                this.parentElement.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+            }
+        });
+        
+        // Button ripple effect
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('div');
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(255, 255, 255, 0.3)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.6s linear';
+                
+                const rect = button.getBoundingClientRect();
+                const size = Math.max(rect.height, rect.width);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                
+                button.style.position = 'relative';
+                button.style.overflow = 'hidden';
+                button.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+        
+        // CSS for ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

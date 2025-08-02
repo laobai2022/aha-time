@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aha - 个人中心</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'SF Pro Display', system-ui, -apple-system, sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .neon-glow {
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+        
+        .device-frame {
+            width: 375px;
+            height: 812px;
+            background: #000;
+            border-radius: 45px;
+            padding: 8px;
+            margin: 0 auto;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        
+        .device-screen {
+            width: 100%;
+            height: 100%;
+            border-radius: 37px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .status-bar {
+            height: 44px;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+        }
+        
+        .home-indicator {
+            width: 134px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 3px;
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .profile-header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .profile-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(0, 255, 255, 0.1), rgba(138, 43, 226, 0.1));
+            z-index: 1;
+        }
+        
+        .profile-header > * {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .avatar-container {
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+        
+        .avatar {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+            border-radius: 50%;
+            display: flex;
+            items-center: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+        
+        .badge {
+            position: absolute;
+            bottom: -5px;
+            right: -5px;
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #000;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 255, 255, 0.2);
+        }
+        
+        .achievement-badge {
+            background: linear-gradient(135deg, #10b981, #06b6d4);
+            animation: shine 2s ease-in-out infinite;
+        }
+        
+        @keyframes shine {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+        
+        .menu-item {
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+        
+        .menu-item:hover {
+            border-left-color: #06b6d4;
+            background: rgba(6, 182, 212, 0.05);
+            transform: translateX(5px);
+        }
+        
+        .level-progress {
+            background: linear-gradient(90deg, #10b981, #06b6d4, #8b5cf6);
+            animation: progressGlow 2s ease-in-out infinite;
+        }
+        
+        @keyframes progressGlow {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; transform: scaleY(1.1); }
+        }
+        
+        .floating-icon {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+    </style>
+</head>
+<body class="bg-black min-h-screen flex items-center justify-center p-4">
+    <!-- Device Frame -->
+    <div class="device-frame">
+        <div class="device-screen gradient-bg relative overflow-hidden">
+            <!-- Status Bar -->
+            <div class="status-bar">
+                <div class="flex items-center">
+                    <i class="fas fa-arrow-left text-white text-lg mr-3 cursor-pointer"></i>
+                    <div class="text-white text-sm font-medium">9:41</div>
+                </div>
+                <div class="flex items-center space-x-1">
+                    <i class="fas fa-signal text-white text-xs"></i>
+                    <i class="fas fa-wifi text-white text-xs"></i>
+                    <div class="w-6 h-3 border border-white rounded-sm">
+                        <div class="w-4 h-1.5 bg-white rounded-sm m-0.5"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="flex flex-col h-full pt-16 pb-8 overflow-y-auto">
+                <!-- Profile Header -->
+                <div class="profile-header px-6 py-6 mb-6">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="avatar-container">
+                            <div class="avatar">李</div>
+                            <div class="badge">
+                                <i class="fas fa-crown text-white text-xs"></i>
+                            </div>
+                        </div>
+                        <div class="flex-1">
+                            <h2 class="text-xl font-bold text-white mb-1">李小明</h2>
+                            <p class="text-cyan-400 text-sm mb-2">金牌工匠 · Lv.8</p>
+                            
+                            <!-- Level Progress -->
+                            <div class="mb-2">
+                                <div class="flex justify-between text-xs text-gray-400 mb-1">
+                                    <span>经验值</span>
+                                    <span>2,450 / 3,000</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-2">
+                                    <div class="level-progress h-2 rounded-full" style="width: 82%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fas fa-edit text-lg"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Stats Grid -->
+                    <div class="grid grid-cols-3 gap-3">
+                        <div class="stat-card rounded-xl p-3 text-center">
+                            <div class="text-cyan-400 text-lg font-bold">12</div>
+                            <div class="text-gray-400 text-xs">已发布应用</div>
+                        </div>
+                        <div class="stat-card rounded-xl p-3 text-center">
+                            <div class="text-green-400 text-lg font-bold">¥8.5k</div>
+                            <div class="text-gray-400 text-xs">总收益</div>
+                        </div>
+                        <div class="stat-card rounded-xl p-3 text-center">
+                            <div class="text-purple-400 text-lg font-bold">2.1k</div>
+                            <div class="text-gray-400 text-xs">粉丝数</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Achievements -->
+                <div class="px-6 mb-6">
+                    <h3 class="text-white font-medium mb-3">最新成就</h3>
+                    <div class="flex space-x-3 overflow-x-auto pb-2">
+                        <div class="achievement-badge rounded-xl p-3 text-center min-w-20">
+                            <i class="fas fa-rocket text-white text-lg mb-1 floating-icon"></i>
+                            <div class="text-white text-xs font-medium">首次发布</div>
+                        </div>
+                        <div class="achievement-badge rounded-xl p-3 text-center min-w-20">
+                            <i class="fas fa-star text-white text-lg mb-1 floating-icon" style="animation-delay: 0.5s;"></i>
+                            <div class="text-white text-xs font-medium">高评分</div>
+                        </div>
+                        <div class="achievement-badge rounded-xl p-3 text-center min-w-20">
+                            <i class="fas fa-users text-white text-lg mb-1 floating-icon" style="animation-delay: 1s;"></i>
+                            <div class="text-white text-xs font-medium">千人用户</div>
+                        </div>
+                        <div class="achievement-badge rounded-xl p-3 text-center min-w-20">
+                            <i class="fas fa-coins text-white text-lg mb-1 floating-icon" style="animation-delay: 1.5s;"></i>
+                            <div class="text-white text-xs font-medium">首笔收益</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- My Apps -->
+                <div class="px-6 mb-6">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-white font-medium">我的应用</h3>
+                        <button class="text-cyan-400 text-sm">查看全部</button>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="glass-effect rounded-xl p-3">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-600 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-baby text-white"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="text-white font-medium text-sm">宝宝营养计算器</h4>
+                                    <div class="flex items-center space-x-4 text-xs text-gray-400 mt-1">
+                                        <span>⭐ 4.8</span>
+                                        <span>📱 2.1k 用户</span>
+                                        <span>💰 ¥1,245</span>
+                                    </div>
+                                </div>
+                                <div class="text-green-400 text-xs bg-green-400/20 px-2 py-1 rounded-full">
+                                    运行中
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="glass-effect rounded-xl p-3">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-calculator text-white"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="text-white font-medium text-sm">理财小助手</h4>
+                                    <div class="flex items-center space-x-4 text-xs text-gray-400 mt-1">
+                                        <span>⭐ 4.6</span>
+                                        <span>📱 856 用户</span>
+                                        <span>💰 ¥892</span>
+                                    </div>
+                                </div>
+                                <div class="text-green-400 text-xs bg-green-400/20 px-2 py-1 rounded-full">
+                                    运行中
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Menu Options -->
+                <div class="px-6">
+                    <h3 class="text-white font-medium mb-3">更多功能</h3>
+                    <div class="space-y-1">
+                        <div class="menu-item glass-effect rounded-xl p-4 cursor-pointer">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-wallet text-cyan-400 text-lg"></i>
+                                <div class="flex-1">
+                                    <div class="text-white font-medium">钱包管理</div>
+                                    <div class="text-gray-400 text-sm">代币余额 · 提现记录</div>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="menu-item glass-effect rounded-xl p-4 cursor-pointer">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-chart-bar text-green-400 text-lg"></i>
+                                <div class="flex-1">
+                                    <div class="text-white font-medium">数据分析</div>
+                                    <div class="text-gray-400 text-sm">收益趋势 · 用户统计</div>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="menu-item glass-effect rounded-xl p-4 cursor-pointer">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-users text-purple-400 text-lg"></i>
+                                <div class="flex-1">
+                                    <div class="text-white font-medium">邀请好友</div>
+                                    <div class="text-gray-400 text-sm">获得代币奖励</div>
+                                </div>
+                                <div class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">+200</div>
+                            </div>
+                        </div>
+                        
+                        <div class="menu-item glass-effect rounded-xl p-4 cursor-pointer">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-cog text-gray-400 text-lg"></i>
+                                <div class="flex-1">
+                                    <div class="text-white font-medium">设置</div>
+                                    <div class="text-gray-400 text-sm">账户安全 · 通知设置</div>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="menu-item glass-effect rounded-xl p-4 cursor-pointer">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-question-circle text-blue-400 text-lg"></i>
+                                <div class="flex-1">
+                                    <div class="text-white font-medium">帮助中心</div>
+                                    <div class="text-gray-400 text-sm">常见问题 · 联系客服</div>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Home Indicator -->
+            <div class="home-indicator"></div>
+        </div>
+    </div>
+    
+    <script>
+        // Menu item interactions
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // Add click animation
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+        
+        // Achievement badges interaction
+        document.querySelectorAll('.achievement-badge').forEach(badge => {
+            badge.addEventListener('click', function() {
+                // Add pulse animation
+                this.style.animation = 'none';
+                setTimeout(() => {
+                    this.style.animation = 'shine 2s ease-in-out infinite';
+                }, 100);
+            });
+        });
+        
+        // Stats cards hover effect
+        document.querySelectorAll('.stat-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.background = 'linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(139, 92, 246, 0.1))';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03))';
+            });
+        });
+        
+        // Level progress animation
+        window.addEventListener('load', function() {
+            const progressBar = document.querySelector('.level-progress');
+            progressBar.style.width = '0%';
+            setTimeout(() => {
+                progressBar.style.transition = 'width 2s ease-out';
+                progressBar.style.width = '82%';
+            }, 500);
+        });
+        
+        // Button ripple effect
+        document.querySelectorAll('button, .menu-item').forEach(element => {
+            element.addEventListener('click', function(e) {
+                const ripple = document.createElement('div');
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(255, 255, 255, 0.3)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.6s linear';
+                
+                const rect = element.getBoundingClientRect();
+                const size = Math.max(rect.height, rect.width);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                
+                element.style.position = 'relative';
+                element.style.overflow = 'hidden';
+                element.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+        
+        // CSS for ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

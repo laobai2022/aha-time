@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aha - 数字空间</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'SF Pro Display', system-ui, -apple-system, sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .neon-glow {
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+        
+        .device-frame {
+            width: 375px;
+            height: 812px;
+            background: #000;
+            border-radius: 45px;
+            padding: 8px;
+            margin: 0 auto;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        
+        .device-screen {
+            width: 100%;
+            height: 100%;
+            border-radius: 37px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .status-bar {
+            height: 44px;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+        }
+        
+        .home-indicator {
+            width: 134px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 3px;
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .space-preview {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .floating-orb {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.8), rgba(138, 43, 226, 0.4));
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        .floating-orb:nth-child(1) {
+            width: 30px;
+            height: 30px;
+            top: 20%;
+            left: 15%;
+            animation-delay: 0s;
+        }
+        
+        .floating-orb:nth-child(2) {
+            width: 20px;
+            height: 20px;
+            top: 60%;
+            right: 20%;
+            animation-delay: 1.5s;
+        }
+        
+        .floating-orb:nth-child(3) {
+            width: 25px;
+            height: 25px;
+            top: 40%;
+            left: 70%;
+            animation-delay: 3s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) scale(1); opacity: 0.7; }
+            50% { transform: translateY(-20px) scale(1.1); opacity: 1; }
+        }
+        
+        .theme-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .theme-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 255, 255, 0.3);
+        }
+        
+        .theme-card.selected {
+            border: 2px solid #00ffff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+        
+        .nft-item {
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+        }
+        
+        .nft-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.2);
+        }
+        
+        .energy-bar {
+            background: linear-gradient(90deg, #10b981, #06b6d4, #8b5cf6);
+            animation: energyFlow 2s ease-in-out infinite;
+        }
+        
+        @keyframes energyFlow {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; transform: scaleX(1.02); }
+        }
+        
+        .visitor-avatar {
+            background: linear-gradient(45deg, #06b6d4, #8b5cf6);
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-3px); }
+        }
+    </style>
+</head>
+<body class="bg-black min-h-screen flex items-center justify-center p-4">
+    <!-- Device Frame -->
+    <div class="device-frame">
+        <div class="device-screen gradient-bg relative overflow-hidden">
+            <!-- Status Bar -->
+            <div class="status-bar">
+                <div class="flex items-center">
+                    <i class="fas fa-arrow-left text-white text-lg mr-3 cursor-pointer"></i>
+                    <div class="text-white text-sm font-medium">9:41</div>
+                </div>
+                <div class="flex items-center space-x-1">
+                    <i class="fas fa-signal text-white text-xs"></i>
+                    <i class="fas fa-wifi text-white text-xs"></i>
+                    <div class="w-6 h-3 border border-white rounded-sm">
+                        <div class="w-4 h-1.5 bg-white rounded-sm m-0.5"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="flex flex-col h-full pt-16 pb-8">
+                <!-- Header -->
+                <div class="px-4 mb-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h1 class="text-xl font-bold text-white mb-1">
+                                <i class="fas fa-cube text-purple-400 mr-2"></i>
+                                我的数字空间
+                            </h1>
+                            <p class="text-gray-400 text-sm">创意工作室</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-8 h-8 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full flex items-center justify-center">
+                                <i class="fas fa-coins text-white text-sm"></i>
+                            </div>
+                            <span class="text-cyan-400 font-semibold">1,250</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Space Preview -->
+                <div class="px-4 mb-4">
+                    <div class="space-preview rounded-2xl h-40 relative">
+                        <!-- Floating orbs for 3D effect -->
+                        <div class="floating-orb"></div>
+                        <div class="floating-orb"></div>
+                        <div class="floating-orb"></div>
+                        
+                        <!-- Space Info Overlay -->
+                        <div class="absolute bottom-0 left-0 right-0 p-4">
+                            <div class="glass-effect rounded-xl p-3">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <div class="text-white font-medium text-sm">赛博茶馆主题</div>
+                                        <div class="text-gray-400 text-xs">今日访客: 127</div>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <!-- Visitor avatars -->
+                                        <div class="visitor-avatar w-6 h-6 rounded-full"></div>
+                                        <div class="visitor-avatar w-6 h-6 rounded-full" style="animation-delay: 0.5s;"></div>
+                                        <div class="visitor-avatar w-6 h-6 rounded-full" style="animation-delay: 1s;"></div>
+                                        <span class="text-cyan-400 text-xs">+124</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Energy Bar -->
+                                <div class="mt-2">
+                                    <div class="flex justify-between text-xs mb-1">
+                                        <span class="text-gray-400">空间能量</span>
+                                        <span class="text-cyan-400">85%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-700 rounded-full h-1.5">
+                                        <div class="energy-bar h-1.5 rounded-full" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Navigation Tabs -->
+                <div class="px-4 mb-4">
+                    <div class="glass-effect rounded-xl p-1">
+                        <div class="grid grid-cols-3 gap-1">
+                            <button id="themesTab" class="tab-btn py-2 px-3 rounded-lg text-sm font-medium text-white bg-white/10 transition-all">
+                                <i class="fas fa-palette mr-1"></i>主题
+                            </button>
+                            <button id="decorTab" class="tab-btn py-2 px-3 rounded-lg text-sm font-medium text-gray-400 transition-all">
+                                <i class="fas fa-shapes mr-1"></i>装饰
+                            </button>
+                            <button id="nftTab" class="tab-btn py-2 px-3 rounded-lg text-sm font-medium text-gray-400 transition-all">
+                                <i class="fas fa-gem mr-1"></i>NFT
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Content Area -->
+                <div class="flex-1 overflow-y-auto">
+                    <!-- Themes Tab Content -->
+                    <div id="themesContent" class="px-4">
+                        <div class="grid grid-cols-2 gap-3 mb-4">
+                            <div class="theme-card selected glass-effect rounded-xl p-3">
+                                <div class="w-full h-20 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg mb-2 relative overflow-hidden">
+                                    <div class="absolute inset-0 bg-black/20"></div>
+                                    <div class="absolute top-2 right-2">
+                                        <i class="fas fa-check-circle text-green-400"></i>
+                                    </div>
+                                </div>
+                                <div class="text-white text-sm font-medium">赛博茶馆</div>
+                                <div class="text-gray-400 text-xs">当前使用</div>
+                            </div>
+                            
+                            <div class="theme-card glass-effect rounded-xl p-3">
+                                <div class="w-full h-20 bg-gradient-to-br from-pink-500 to-orange-500 rounded-lg mb-2 relative overflow-hidden">
+                                    <div class="absolute top-2 right-2">
+                                        <i class="fas fa-lock text-gray-400"></i>
+                                    </div>
+                                </div>
+                                <div class="text-white text-sm font-medium">霓虹都市</div>
+                                <div class="text-cyan-400 text-xs">50 $AHA</div>
+                            </div>
+                            
+                            <div class="theme-card glass-effect rounded-xl p-3">
+                                <div class="w-full h-20 bg-gradient-to-br from-green-500 to-teal-500 rounded-lg mb-2"></div>
+                                <div class="text-white text-sm font-medium">森林禅意</div>
+                                <div class="text-cyan-400 text-xs">30 $AHA</div>
+                            </div>
+                            
+                            <div class="theme-card glass-effect rounded-xl p-3">
+                                <div class="w-full h-20 bg-gradient-to-br from-gray-800 to-gray-600 rounded-lg mb-2"></div>
+                                <div class="text-white text-sm font-medium">极简黑白</div>
+                                <div class="text-green-400 text-xs">免费</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Decorations Tab Content -->
+                    <div id="decorContent" class="px-4 hidden">
+                        <div class="space-y-3">
+                            <div class="nft-item glass-effect rounded-xl p-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-magic text-white"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="text-white font-medium text-sm">粒子特效包</div>
+                                        <div class="text-gray-400 text-xs">动态粒子流</div>
+                                    </div>
+                                    <div class="text-cyan-400 text-sm font-medium">80 $AHA</div>
+                                </div>
+                            </div>
+                            
+                            <div class="nft-item glass-effect rounded-xl p-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-blue-500 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-tree text-white"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="text-white font-medium text-sm">3D植物模型</div>
+                                        <div class="text-gray-400 text-xs">生态装饰</div>
+                                    </div>
+                                    <div class="text-cyan-400 text-sm font-medium">120 $AHA</div>
+                                </div>
+                            </div>
+                            
+                            <div class="nft-item glass-effect rounded-xl p-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-red-500 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-lightbulb text-white"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="text-white font-medium text-sm">霓虹灯管</div>
+                                        <div class="text-gray-400 text-xs">发光装饰</div>
+                                    </div>
+                                    <div class="text-cyan-400 text-sm font-medium">60 $AHA</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- NFT Tab Content -->
+                    <div id="nftContent" class="px-4 hidden">
+                        <div class="space-y-4">
+                            <div class="nft-item glass-effect rounded-xl p-4">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="text-white font-medium">限量NFT收藏</div>
+                                    <div class="bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs px-2 py-1 rounded-full">
+                                        热门
+                                    </div>
+                                </div>
+                                
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="glass-effect rounded-lg p-3">
+                                        <div class="w-full h-16 bg-gradient-to-br from-purple-600 via-pink-600 to-blue-600 rounded-lg mb-2"></div>
+                                        <div class="text-white text-xs font-medium">银河漫游</div>
+                                        <div class="text-cyan-400 text-xs">0.05 ETH</div>
+                                    </div>
+                                    
+                                    <div class="glass-effect rounded-lg p-3">
+                                        <div class="w-full h-16 bg-gradient-to-br from-green-500 via-blue-500 to-purple-600 rounded-lg mb-2"></div>
+                                        <div class="text-white text-xs font-medium">数码森林</div>
+                                        <div class="text-cyan-400 text-xs">0.03 ETH</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="glass-effect rounded-xl p-4">
+                                <div class="text-white font-medium mb-3">我的NFT收藏</div>
+                                <div class="text-center py-6">
+                                    <i class="fas fa-box-open text-gray-500 text-2xl mb-2"></i>
+                                    <div class="text-gray-400 text-sm">暂无NFT收藏</div>
+                                    <div class="text-gray-500 text-xs">购买NFT来装扮您的空间</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Action Button -->
+                <div class="px-4 pt-4">
+                    <button class="w-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl py-3 text-white font-semibold neon-glow hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300">
+                        <i class="fas fa-brush mr-2"></i>自定义装扮
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Home Indicator -->
+            <div class="home-indicator"></div>
+        </div>
+    </div>
+    
+    <script>
+        // Tab switching functionality
+        const tabs = {
+            themes: { btn: document.getElementById('themesTab'), content: document.getElementById('themesContent') },
+            decor: { btn: document.getElementById('decorTab'), content: document.getElementById('decorContent') },
+            nft: { btn: document.getElementById('nftTab'), content: document.getElementById('nftContent') }
+        };
+        
+        function switchTab(activeTab) {
+            // Reset all tabs
+            Object.values(tabs).forEach(tab => {
+                tab.btn.classList.remove('bg-white/10', 'text-white');
+                tab.btn.classList.add('text-gray-400');
+                tab.content.classList.add('hidden');
+            });
+            
+            // Activate selected tab
+            tabs[activeTab].btn.classList.add('bg-white/10', 'text-white');
+            tabs[activeTab].btn.classList.remove('text-gray-400');
+            tabs[activeTab].content.classList.remove('hidden');
+        }
+        
+        // Add event listeners
+        tabs.themes.btn.addEventListener('click', () => switchTab('themes'));
+        tabs.decor.btn.addEventListener('click', () => switchTab('decor'));
+        tabs.nft.btn.addEventListener('click', () => switchTab('nft'));
+        
+        // Theme selection
+        document.querySelectorAll('.theme-card').forEach(card => {
+            card.addEventListener('click', function() {
+                // Remove selected class from all cards
+                document.querySelectorAll('.theme-card').forEach(c => c.classList.remove('selected'));
+                // Add selected class to clicked card
+                this.classList.add('selected');
+            });
+        });
+        
+        // Button ripple effect
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('div');
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(255, 255, 255, 0.3)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.6s linear';
+                
+                const rect = button.getBoundingClientRect();
+                const size = Math.max(rect.height, rect.width);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                
+                button.style.position = 'relative';
+                button.style.overflow = 'hidden';
+                button.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+        
+        // CSS for ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

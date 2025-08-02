@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aha - 收益仪表盘</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'SF Pro Display', system-ui, -apple-system, sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .neon-glow {
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+        
+        .device-frame {
+            width: 375px;
+            height: 812px;
+            background: #000;
+            border-radius: 45px;
+            padding: 8px;
+            margin: 0 auto;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        
+        .device-screen {
+            width: 100%;
+            height: 100%;
+            border-radius: 37px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .status-bar {
+            height: 44px;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+        }
+        
+        .home-indicator {
+            width: 134px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 3px;
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .revenue-card {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(139, 92, 246, 0.1));
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 120px;
+        }
+        
+        .chart-bar {
+            background: linear-gradient(to top, #06b6d4, #8b5cf6);
+            border-radius: 2px;
+            animation: growUp 1s ease-out;
+        }
+        
+        @keyframes growUp {
+            from { height: 0; }
+            to { height: var(--height); }
+        }
+        
+        .trend-arrow {
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+        
+        .token-balance {
+            background: linear-gradient(135deg, #10b981, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 2s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; transform: scale(1.02); }
+        }
+        
+        .metric-card {
+            transition: all 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.2);
+        }
+        
+        .activity-item {
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+        
+        .activity-item:hover {
+            border-left-color: #06b6d4;
+            background: rgba(6, 182, 212, 0.05);
+        }
+        
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+        
+        .progress-ring-circle {
+            stroke-dasharray: 251.2;
+            stroke-dashoffset: 125.6;
+            animation: progressFill 2s ease-out;
+        }
+        
+        @keyframes progressFill {
+            from { stroke-dashoffset: 251.2; }
+            to { stroke-dashoffset: 125.6; }
+        }
+    </style>
+</head>
+<body class="bg-black min-h-screen flex items-center justify-center p-4">
+    <!-- Device Frame -->
+    <div class="device-frame">
+        <div class="device-screen gradient-bg relative overflow-hidden">
+            <!-- Status Bar -->
+            <div class="status-bar">
+                <div class="flex items-center">
+                    <i class="fas fa-arrow-left text-white text-lg mr-3 cursor-pointer"></i>
+                    <div class="text-white text-sm font-medium">9:41</div>
+                </div>
+                <div class="flex items-center space-x-1">
+                    <i class="fas fa-signal text-white text-xs"></i>
+                    <i class="fas fa-wifi text-white text-xs"></i>
+                    <div class="w-6 h-3 border border-white rounded-sm">
+                        <div class="w-4 h-1.5 bg-white rounded-sm m-0.5"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="flex flex-col h-full pt-16 pb-8 overflow-y-auto">
+                <!-- Header -->
+                <div class="px-4 mb-6">
+                    <h1 class="text-xl font-bold text-white mb-1">
+                        <i class="fas fa-chart-line text-green-400 mr-2"></i>
+                        收益仪表盘
+                    </h1>
+                    <p class="text-gray-400 text-sm">实时追踪您的创收表现</p>
+                </div>
+                
+                <!-- Revenue Overview -->
+                <div class="px-4 mb-6">
+                    <div class="revenue-card rounded-2xl p-4">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <div class="text-gray-300 text-sm">总收益</div>
+                                <div class="text-2xl font-bold text-white">¥8,456</div>
+                                <div class="flex items-center mt-1">
+                                    <i class="fas fa-arrow-up trend-arrow text-green-400 text-xs mr-1"></i>
+                                    <span class="text-green-400 text-xs">+15.6% 本月</span>
+                                </div>
+                            </div>
+                            <div class="relative">
+                                <svg class="progress-ring w-16 h-16">
+                                    <circle cx="32" cy="32" r="28" stroke="rgba(255,255,255,0.1)" stroke-width="4" fill="none"/>
+                                    <circle cx="32" cy="32" r="28" stroke="url(#gradient)" stroke-width="4" fill="none" 
+                                            class="progress-ring-circle" stroke-linecap="round"/>
+                                    <defs>
+                                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" style="stop-color:#10b981"/>
+                                            <stop offset="100%" style="stop-color:#06b6d4"/>
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <span class="text-cyan-400 text-xs font-bold">85%</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Mini Chart -->
+                        <div class="chart-container flex items-end justify-between px-2">
+                            <div class="chart-bar w-2" style="--height: 30px; height: 30px;"></div>
+                            <div class="chart-bar w-2" style="--height: 45px; height: 45px;"></div>
+                            <div class="chart-bar w-2" style="--height: 25px; height: 25px;"></div>
+                            <div class="chart-bar w-2" style="--height: 60px; height: 60px;"></div>
+                            <div class="chart-bar w-2" style="--height: 80px; height: 80px;"></div>
+                            <div class="chart-bar w-2" style="--height: 55px; height: 55px;"></div>
+                            <div class="chart-bar w-2" style="--height: 90px; height: 90px;"></div>
+                            <div class="chart-bar w-2" style="--height: 75px; height: 75px;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Metrics Grid -->
+                <div class="px-4 mb-6">
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="metric-card glass-effect rounded-xl p-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <i class="fas fa-mobile-alt text-blue-400"></i>
+                                <span class="text-xs text-green-400">+12%</span>
+                            </div>
+                            <div class="text-white font-semibold">2,347</div>
+                            <div class="text-gray-400 text-xs">应用调用</div>
+                        </div>
+                        
+                        <div class="metric-card glass-effect rounded-xl p-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <i class="fas fa-eye text-purple-400"></i>
+                                <span class="text-xs text-green-400">+8%</span>
+                            </div>
+                            <div class="text-white font-semibold">1,856</div>
+                            <div class="text-gray-400 text-xs">空间访问</div>
+                        </div>
+                        
+                        <div class="metric-card glass-effect rounded-xl p-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <i class="fas fa-heart text-pink-400"></i>
+                                <span class="text-xs text-green-400">+23%</span>
+                            </div>
+                            <div class="text-white font-semibold">324</div>
+                            <div class="text-gray-400 text-xs">点赞数</div>
+                        </div>
+                        
+                        <div class="metric-card glass-effect rounded-xl p-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <i class="fas fa-share-alt text-cyan-400"></i>
+                                <span class="text-xs text-green-400">+18%</span>
+                            </div>
+                            <div class="text-white font-semibold">89</div>
+                            <div class="text-gray-400 text-xs">分享次数</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Token Balance -->
+                <div class="px-4 mb-6">
+                    <div class="glass-effect rounded-xl p-4">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-coins text-white text-sm"></i>
+                                </div>
+                                <div>
+                                    <div class="text-white font-medium">$AHA 余额</div>
+                                    <div class="text-gray-400 text-xs">代币钱包</div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="token-balance text-xl font-bold">1,250</div>
+                                <div class="text-gray-400 text-xs">≈ ¥125.00</div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-3 mt-4">
+                            <button class="bg-gradient-to-r from-green-500 to-green-600 text-white py-2 px-4 rounded-xl text-sm font-medium">
+                                <i class="fas fa-plus mr-1"></i>充值
+                            </button>
+                            <button class="glass-effect text-white py-2 px-4 rounded-xl text-sm font-medium hover:bg-white/10 transition-all">
+                                <i class="fas fa-arrow-up mr-1"></i>提现
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Activity -->
+                <div class="px-4">
+                    <h3 class="text-white font-medium mb-3">最近活动</h3>
+                    <div class="space-y-3">
+                        <div class="activity-item glass-effect rounded-xl p-3">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-coins text-white text-xs"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-white text-sm">应用调用收益</div>
+                                    <div class="text-gray-400 text-xs">宝宝营养计算器 · 5分钟前</div>
+                                </div>
+                                <div class="text-green-400 text-sm font-medium">+¥2.50</div>
+                            </div>
+                        </div>
+                        
+                        <div class="activity-item glass-effect rounded-xl p-3">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-heart text-white text-xs"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-white text-sm">空间点赞收益</div>
+                                    <div class="text-gray-400 text-xs">数字创作空间 · 15分钟前</div>
+                                </div>
+                                <div class="text-green-400 text-sm font-medium">+5 $AHA</div>
+                            </div>
+                        </div>
+                        
+                        <div class="activity-item glass-effect rounded-xl p-3">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-gem text-white text-xs"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-white text-sm">NFT装扮购买</div>
+                                    <div class="text-gray-400 text-xs">赛博茶馆主题 · 1小时前</div>
+                                </div>
+                                <div class="text-red-400 text-sm font-medium">-50 $AHA</div>
+                            </div>
+                        </div>
+                        
+                        <div class="activity-item glass-effect rounded-xl p-3">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-share-alt text-white text-xs"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-white text-sm">邀请奖励</div>
+                                    <div class="text-gray-400 text-xs">好友注册成功 · 2小时前</div>
+                                </div>
+                                <div class="text-green-400 text-sm font-medium">+200 $AHA</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Home Indicator -->
+            <div class="home-indicator"></div>
+        </div>
+    </div>
+    
+    <script>
+        // Animate chart bars on load
+        window.addEventListener('load', function() {
+            const bars = document.querySelectorAll('.chart-bar');
+            bars.forEach((bar, index) => {
+                setTimeout(() => {
+                    bar.style.animation = 'growUp 1s ease-out';
+                }, index * 100);
+            });
+        });
+        
+        // Simulate real-time updates
+        function updateMetrics() {
+            const metrics = document.querySelectorAll('.metric-card .text-white');
+            metrics.forEach(metric => {
+                const currentValue = parseInt(metric.textContent.replace(/,/g, ''));
+                const newValue = currentValue + Math.floor(Math.random() * 10);
+                metric.textContent = newValue.toLocaleString();
+            });
+        }
+        
+        // Update metrics every 5 seconds
+        setInterval(updateMetrics, 5000);
+        
+        // Button ripple effect
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('div');
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(255, 255, 255, 0.3)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.6s linear';
+                
+                const rect = button.getBoundingClientRect();
+                const size = Math.max(rect.height, rect.width);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                
+                button.style.position = 'relative';
+                button.style.overflow = 'hidden';
+                button.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+        
+        // CSS for ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
