@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aha - 灵感变现平台 | 高保真HTML原型展示</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .prototype-frame {
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            margin-bottom: 3rem;
+            background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+            border: 1px solid #333;
+        }
+        
+        .iphone-frame {
+            background: #000;
+            border-radius: 28px;
+            padding: 8px;
+            position: relative;
+        }
+        
+        .iphone-screen {
+            background: #000;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 154px;
+            height: 30px;
+            background: #000;
+            border-radius: 0 0 16px 16px;
+            z-index: 20;
+        }
+        
+        .status-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 54px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 0 24px 8px;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 15;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+        }
+        
+        .home-indicator {
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 134px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 3px;
+            z-index: 15;
+        }
+        
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .cyber-glow {
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+        }
+        
+        .neon-text {
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
+        }
+        
+        .particle-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 25% 25%, rgba(56, 189, 248, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 75% 75%, rgba(168, 85, 247, 0.1) 0%, transparent 50%);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-black text-white min-h-screen">
+    <!-- Particle Background -->
+    <div class="particle-bg"></div>
+    
+    <!-- Header -->
+    <header class="glassmorphism border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 py-8">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center cyber-glow floating">
+                        <i class="fas fa-lightbulb text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-3xl font-bold text-white neon-text">Aha</h1>
+                        <p class="text-gray-400 text-sm">灵感变现平台 - 高保真HTML原型展示</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-gray-400 text-sm">全球首个灵感变现即时操作系统</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-6 py-12">
+        <!-- Introduction -->
+        <div class="mb-12 p-8 glassmorphism rounded-2xl border border-gray-800">
+            <h2 class="text-2xl font-semibold mb-6 text-white neon-text">项目概述</h2>
+            <p class="text-gray-300 mb-6 leading-relaxed">
+                Aha 是全球首个灵感变现即时操作系统，让用户通过零代码工具将灵感记录、并转化为可持续变现的商业化应用工具，并在社交化空间中实现装扮、分享与经济收益。
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+                <div class="flex items-center space-x-3 p-4 bg-gradient-to-r from-blue-900/30 to-blue-700/30 rounded-xl">
+                    <i class="fas fa-palette text-blue-400 text-xl"></i>
+                    <span class="text-gray-300">Tailwind CSS + FontAwesome</span>
+                </div>
+                <div class="flex items-center space-x-3 p-4 bg-gradient-to-r from-green-900/30 to-green-700/30 rounded-xl">
+                    <i class="fas fa-image text-green-400 text-xl"></i>
+                    <span class="text-gray-300">Unsplash 高质量图片</span>
+                </div>
+                <div class="flex items-center space-x-3 p-4 bg-gradient-to-r from-purple-900/30 to-purple-700/30 rounded-xl">
+                    <i class="fas fa-mobile-alt text-purple-400 text-xl"></i>
+                    <span class="text-gray-300">iOS风格设计优先</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prototypes Grid -->
+        <div class="space-y-12">
+            <!-- 1. 登录注册页面 -->
+            <div class="prototype-frame">
+                <div class="iphone-frame">
+                    <div class="iphone-screen w-[375px] h-[812px] mx-auto">
+                        <div class="notch"></div>
+                        <div class="status-bar">
+                            <span>9:41</span>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-signal text-xs"></i>
+                                <i class="fas fa-wifi text-xs"></i>
+                                <i class="fas fa-battery-three-quarters text-xs"></i>
+                            </div>
+                        </div>
+                        <iframe src="login.html" class="w-full h-full" frameborder="0"></iframe>
+                        <div class="home-indicator"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. 灵感记录页面 -->
+            <div class="prototype-frame">
+                <div class="iphone-frame">
+                    <div class="iphone-screen w-[375px] h-[812px] mx-auto">
+                        <div class="notch"></div>
+                        <div class="status-bar">
+                            <span>9:41</span>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-signal text-xs"></i>
+                                <i class="fas fa-wifi text-xs"></i>
+                                <i class="fas fa-battery-three-quarters text-xs"></i>
+                            </div>
+                        </div>
+                        <iframe src="inspiration-capture.html" class="w-full h-full" frameborder="0"></iframe>
+                        <div class="home-indicator"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. 应用创建页面 -->
+            <div class="prototype-frame">
+                <div class="iphone-frame">
+                    <div class="iphone-screen w-[375px] h-[812px] mx-auto">
+                        <div class="notch"></div>
+                        <div class="status-bar">
+                            <span>9:41</span>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-signal text-xs"></i>
+                                <i class="fas fa-wifi text-xs"></i>
+                                <i class="fas fa-battery-three-quarters text-xs"></i>
+                            </div>
+                        </div>
+                        <iframe src="app-creator.html" class="w-full h-full" frameborder="0"></iframe>
+                        <div class="home-indicator"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. 数字空间页面 -->
+            <div class="prototype-frame">
+                <div class="iphone-frame">
+                    <div class="iphone-screen w-[375px] h-[812px] mx-auto">
+                        <div class="notch"></div>
+                        <div class="status-bar">
+                            <span>9:41</span>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-signal text-xs"></i>
+                                <i class="fas fa-wifi text-xs"></i>
+                                <i class="fas fa-battery-three-quarters text-xs"></i>
+                            </div>
+                        </div>
+                        <iframe src="digital-space.html" class="w-full h-full" frameborder="0"></iframe>
+                        <div class="home-indicator"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. 经济系统页面 -->
+            <div class="prototype-frame">
+                <div class="iphone-frame">
+                    <div class="iphone-screen w-[375px] h-[812px] mx-auto">
+                        <div class="notch"></div>
+                        <div class="status-bar">
+                            <span>9:41</span>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-signal text-xs"></i>
+                                <i class="fas fa-wifi text-xs"></i>
+                                <i class="fas fa-battery-three-quarters text-xs"></i>
+                            </div>
+                        </div>
+                        <iframe src="economy-dashboard.html" class="w-full h-full" frameborder="0"></iframe>
+                        <div class="home-indicator"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. 应用广场页面 -->
+            <div class="prototype-frame">
+                <div class="iphone-frame">
+                    <div class="iphone-screen w-[375px] h-[812px] mx-auto">
+                        <div class="notch"></div>
+                        <div class="status-bar">
+                            <span>9:41</span>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-signal text-xs"></i>
+                                <i class="fas fa-wifi text-xs"></i>
+                                <i class="fas fa-battery-three-quarters text-xs"></i>
+                            </div>
+                        </div>
+                        <iframe src="app-marketplace.html" class="w-full h-full" frameborder="0"></iframe>
+                        <div class="home-indicator"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glassmorphism border-t border-gray-800 mt-16">
+        <div class="max-w-7xl mx-auto px-6 py-8">
+            <div class="text-center text-gray-400 text-sm">
+                <p class="mb-2">Aha - 灵感变现平台 | 高保真HTML原型</p>
+                <p>技术栈: HTML5, Tailwind CSS, FontAwesome | 图片来源: Unsplash | 设计风格: iOS优先</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
