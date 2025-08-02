@@ -1,353 +1,550 @@
-# Maxun - Design Specification Document
+# Aha App 设计规范文档 (Design System Specification)
 
-## 1. 设计概述
+## 项目概述
 
-### 1.1 设计理念
-Maxun 的设计理念是"简单而强大"，通过直观的界面和流畅的用户体验，让复杂的网络数据提取变得简单易用。
+**项目名称**: Aha - 灵感变现即时操作系统  
+**设计版本**: v1.0  
+**目标平台**: iOS 移动端应用  
+**设计风格**: 暗黑科技主题 + 玻璃拟态  
+**技术栈**: HTML5 + Tailwind CSS + FontAwesome  
 
-### 1.2 设计原则
-- **简洁性**: 界面简洁明了，减少认知负担
-- **一致性**: 保持设计元素和交互模式的一致性
-- **可访问性**: 确保所有用户都能轻松使用
-- **响应式**: 适配不同设备和屏幕尺寸
-- **现代化**: 采用最新的设计趋势和技术
+---
 
-## 2. 视觉设计规范
+## 设计原则
 
-### 2.1 色彩系统
+### 1. 用户体验原则
+- **零认知负荷**: 界面文字≤小学六年级阅读水平
+- **7天法则**: 新用户从注册到发布首个应用≤7天
+- **Aha时刻强化**: 关键操作触发多感官反馈（视觉+听觉+触觉）
+- **零代码理念**: 用户全程无代码触及
 
-#### 主色调
-- **主色**: `#6366F1` (Indigo 500) - 用于主要按钮、链接和重要元素
-- **辅助色**: `#8B5CF6` (Violet 500) - 用于次要按钮和装饰元素
-- **成功色**: `#10B981` (Emerald 500) - 用于成功状态和确认操作
-- **警告色**: `#F59E0B` (Amber 500) - 用于警告和提醒
-- **错误色**: `#EF4444` (Red 500) - 用于错误状态和危险操作
+### 2. 视觉设计原则
+- **深度层次**: 利用玻璃拟态和阴影营造空间感
+- **动态反馈**: 所有交互元素提供即时视觉反馈
+- **数据可视化**: 收益数据实时映射为空间动态效果
+- **无障碍设计**: 遵循WCAG 2.1 AAA标准
 
-#### 中性色
-- **背景色**: `#0F172A` (Slate 900) - 主背景
-- **卡片背景**: `#1E293B` (Slate 800) - 卡片和面板背景
-- **边框色**: `#334155` (Slate 700) - 边框和分割线
-- **文本主色**: `#F8FAFC` (Slate 50) - 主要文本
-- **文本次要色**: `#CBD5E1` (Slate 300) - 次要文本
+---
 
-### 2.2 字体系统
+## 色彩系统
 
-#### 字体族
-- **主字体**: Inter - 现代、清晰的无衬线字体
-- **代码字体**: JetBrains Mono - 等宽字体，用于代码显示
+### 主色调 (Primary Colors)
+```css
+/* 品牌主色 */
+--primary-cyan: #06b6d4      /* 主要操作、链接 */
+--primary-purple: #8b5cf6    /* 次要操作、装饰 */
+--primary-gradient: linear-gradient(135deg, #06b6d4, #8b5cf6)
 
-#### 字体大小
-- **标题1**: 2.25rem (36px) - 页面主标题
-- **标题2**: 1.875rem (30px) - 区块标题
-- **标题3**: 1.5rem (24px) - 子区块标题
-- **标题4**: 1.25rem (20px) - 小标题
-- **正文**: 1rem (16px) - 主要内容
-- **小文本**: 0.875rem (14px) - 辅助信息
-- **标签**: 0.75rem (12px) - 标签和注释
+/* 功能色彩 */
+--success-green: #10b981     /* 成功状态、收益 */
+--warning-orange: #f59e0b    /* 警告、付费 */
+--error-red: #ef4444         /* 错误、危险操作 */
+--info-blue: #3b82f6         /* 信息提示 */
+```
 
-#### 字重
-- **Light**: 300 - 用于大标题
-- **Regular**: 400 - 用于正文
-- **Medium**: 500 - 用于强调文本
-- **Semibold**: 600 - 用于小标题
-- **Bold**: 700 - 用于重要标题
+### 中性色 (Neutral Colors)
+```css
+/* 背景色 */
+--bg-primary: #0a0a0a        /* 主背景 */
+--bg-secondary: #1a1a2e      /* 次要背景 */
+--bg-tertiary: #16213e       /* 第三层背景 */
 
-### 2.3 间距系统
+/* 文字色 */
+--text-primary: #ffffff      /* 主要文字 */
+--text-secondary: #e5e7eb    /* 次要文字 */
+--text-tertiary: #9ca3af     /* 辅助文字 */
+--text-quaternary: #6b7280   /* 占位符文字 */
+```
 
-#### 基础间距单位
-- **4px**: 最小间距单位
-- **8px**: 小间距
-- **16px**: 标准间距
-- **24px**: 中等间距
-- **32px**: 大间距
-- **48px**: 超大间距
+### 玻璃拟态色彩
+```css
+/* 玻璃效果 */
+--glass-bg: rgba(255, 255, 255, 0.05)
+--glass-border: rgba(255, 255, 255, 0.1)
+--glass-hover: rgba(255, 255, 255, 0.08)
 
-#### 应用规则
-- 元素内部间距: 8px-16px
-- 元素间间距: 16px-24px
-- 区块间间距: 24px-32px
-- 页面边距: 16px-24px
+/* 霓虹发光 */
+--neon-cyan: rgba(6, 182, 212, 0.3)
+--neon-purple: rgba(139, 92, 246, 0.3)
+```
 
-### 2.4 圆角系统
-- **小圆角**: 4px - 按钮、输入框
-- **中圆角**: 8px - 卡片、面板
-- **大圆角**: 12px - 模态框、大卡片
-- **全圆角**: 50% - 头像、圆形按钮
+---
 
-## 3. 组件设计规范
+## 字体系统
 
-### 3.1 按钮组件
+### 字体族
+- **主字体**: SF Pro Display (iOS系统字体)
+- **备用字体**: system-ui, -apple-system, sans-serif
 
-#### 主要按钮
+### 字体大小规范
+```css
+/* 标题字体 */
+--text-5xl: 3rem      /* 48px - 主标题 */
+--text-4xl: 2.25rem   /* 36px - 二级标题 */
+--text-3xl: 1.875rem  /* 30px - 三级标题 */
+--text-2xl: 1.5rem    /* 24px - 四级标题 */
+--text-xl: 1.25rem    /* 20px - 五级标题 */
+
+/* 正文字体 */
+--text-lg: 1.125rem   /* 18px - 大正文 */
+--text-base: 1rem     /* 16px - 标准正文 */
+--text-sm: 0.875rem   /* 14px - 小正文 */
+--text-xs: 0.75rem    /* 12px - 辅助文字 */
+```
+
+### 字重规范
+- **Light (300)**: 装饰性文字
+- **Regular (400)**: 正文内容
+- **Medium (500)**: 次要标题
+- **SemiBold (600)**: 重要信息
+- **Bold (700)**: 主要标题
+
+---
+
+## 间距系统
+
+### 基础间距单位
+基于 4px 网格系统：
+```css
+--space-1: 0.25rem    /* 4px */
+--space-2: 0.5rem     /* 8px */
+--space-3: 0.75rem    /* 12px */
+--space-4: 1rem       /* 16px */
+--space-5: 1.25rem    /* 20px */
+--space-6: 1.5rem     /* 24px */
+--space-8: 2rem       /* 32px */
+--space-10: 2.5rem    /* 40px */
+--space-12: 3rem      /* 48px */
+--space-16: 4rem      /* 64px */
+--space-20: 5rem      /* 80px */
+```
+
+### 组件内边距
+- **小组件**: 12px (space-3)
+- **中等组件**: 16px (space-4)
+- **大组件**: 24px (space-6)
+- **页面容器**: 24px (space-6)
+
+---
+
+## 圆角系统
+
+```css
+--rounded-sm: 0.125rem    /* 2px - 小元素 */
+--rounded: 0.25rem        /* 4px - 按钮、输入框 */
+--rounded-md: 0.375rem    /* 6px - 卡片边缘 */
+--rounded-lg: 0.5rem      /* 8px - 大卡片 */
+--rounded-xl: 0.75rem     /* 12px - 模态框 */
+--rounded-2xl: 1rem       /* 16px - 主要容器 */
+--rounded-3xl: 1.5rem     /* 24px - 特殊容器 */
+--rounded-full: 50%       /* 圆形元素 */
+```
+
+---
+
+## 阴影系统
+
+### 层级阴影
+```css
+/* 基础阴影 */
+--shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05)
+--shadow: 0 1px 3px rgba(0, 0, 0, 0.1)
+--shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1)
+--shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1)
+--shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1)
+--shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.25)
+
+/* 设备阴影 */
+--device-shadow: 0 25px 50px rgba(0, 0, 0, 0.5)
+--device-shadow-hover: 0 30px 60px rgba(0, 255, 255, 0.2)
+
+/* 霓虹发光 */
+--neon-glow: 0 0 20px rgba(0, 255, 255, 0.3)
+--neon-glow-strong: 0 0 30px rgba(0, 255, 255, 0.5)
+```
+
+---
+
+## 组件库
+
+### 1. 按钮组件
+
+#### 主要按钮 (Primary Button)
 ```css
 .btn-primary {
-  background: #6366F1;
+  background: linear-gradient(90deg, #06b6d4, #8b5cf6);
   color: white;
   padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: 500;
-  transition: all 0.2s;
+  border-radius: 16px;
+  font-weight: 600;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+  transition: all 0.3s ease;
 }
 
 .btn-primary:hover {
-  background: #5855EB;
-  transform: translateY(-1px);
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.4);
 }
 ```
 
-#### 次要按钮
+#### 次要按钮 (Secondary Button)
 ```css
 .btn-secondary {
-  background: transparent;
-  color: #6366F1;
-  border: 1px solid #6366F1;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: 500;
-}
-```
-
-#### 危险按钮
-```css
-.btn-danger {
-  background: #EF4444;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: white;
   padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: 500;
+  border-radius: 16px;
+  backdrop-filter: blur(20px);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
 ```
 
-### 3.2 输入框组件
+### 2. 输入框组件
 
-#### 标准输入框
 ```css
-.input {
-  background: #1E293B;
-  border: 1px solid #334155;
-  color: #F8FAFC;
-  padding: 12px 16px;
-  border-radius: 8px;
-  transition: border-color 0.2s;
+.input-field {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 16px;
+  color: white;
+  backdrop-filter: blur(20px);
 }
 
-.input:focus {
-  border-color: #6366F1;
+.input-field:focus {
+  border-color: rgba(0, 255, 255, 0.5);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
   outline: none;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 ```
 
-### 3.3 卡片组件
+### 3. 卡片组件
 
-#### 标准卡片
 ```css
-.card {
-  background: #1E293B;
-  border: 1px solid #334155;
-  border-radius: 12px;
+.card-glass {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
   padding: 24px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(20px);
+  transition: all 0.3s ease;
+}
+
+.card-glass:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-5px);
 }
 ```
 
-### 3.4 状态指示器
+### 4. 设备框架组件
 
-#### 成功状态
 ```css
-.status-success {
-  color: #10B981;
-  background: rgba(16, 185, 129, 0.1);
-  padding: 4px 8px;
-  border-radius: 4px;
+.device-frame {
+  width: 375px;
+  height: 812px;
+  background: #000;
+  border-radius: 45px;
+  padding: 8px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.device-screen {
+  width: 100%;
+  height: 100%;
+  border-radius: 37px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+}
+
+.status-bar {
+  height: 44px;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+}
+
+.home-indicator {
+  width: 134px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 3px;
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 ```
 
-#### 警告状态
+---
+
+## 动画与交互
+
+### 1. 过渡动画
 ```css
-.status-warning {
-  color: #F59E0B;
-  background: rgba(245, 158, 11, 0.1);
-  padding: 4px 8px;
-  border-radius: 4px;
+/* 标准过渡 */
+.transition-standard {
+  transition: all 0.3s ease;
+}
+
+/* 快速过渡 */
+.transition-fast {
+  transition: all 0.15s ease;
+}
+
+/* 慢速过渡 */
+.transition-slow {
+  transition: all 0.5s ease;
 }
 ```
 
-#### 错误状态
+### 2. 关键帧动画
+
+#### 浮动效果
 ```css
-.status-error {
-  color: #EF4444;
-  background: rgba(239, 68, 68, 0.1);
-  padding: 4px 8px;
-  border-radius: 4px;
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.floating {
+  animation: float 3s ease-in-out infinite;
 }
 ```
 
-## 4. 布局规范
-
-### 4.1 网格系统
-- **12列网格**: 用于复杂布局
-- **6列网格**: 用于中等复杂度布局
-- **4列网格**: 用于简单布局
-- **响应式断点**:
-  - 移动端: < 768px
-  - 平板: 768px - 1024px
-  - 桌面: > 1024px
-
-### 4.2 容器宽度
-- **最大宽度**: 1200px
-- **标准宽度**: 1000px
-- **紧凑宽度**: 800px
-
-### 4.3 导航布局
-- **顶部导航**: 固定高度 64px
-- **侧边栏**: 固定宽度 240px
-- **主内容区**: 自适应宽度
-- **底部**: 固定高度 60px
-
-## 5. 交互设计规范
-
-### 5.1 动画效果
-
-#### 过渡动画
-- **标准过渡**: 0.2s ease-in-out
-- **快速过渡**: 0.15s ease-out
-- **慢速过渡**: 0.3s ease-in-out
-
-#### 悬停效果
-- **按钮悬停**: 轻微上移 + 阴影加深
-- **卡片悬停**: 阴影加深 + 轻微缩放
-- **链接悬停**: 颜色变化 + 下划线
-
-### 5.2 加载状态
-
-#### 加载指示器
+#### 脉冲效果
 ```css
-.loading-spinner {
-  border: 2px solid #334155;
-  border-top: 2px solid #6366F1;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  animation: spin 1s linear infinite;
+@keyframes pulse {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+.pulse {
+  animation: pulse 2s infinite;
 }
 ```
 
-#### 骨架屏
+#### 发光效果
 ```css
-.skeleton {
-  background: linear-gradient(90deg, #334155 25%, #475569 50%, #334155 75%);
-  background-size: 200% 100%;
-  animation: loading 1.5s infinite;
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.3); }
+  50% { box-shadow: 0 0 30px rgba(0, 255, 255, 0.6); }
 }
 
-@keyframes loading {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+.glow {
+  animation: glow 2s ease-in-out infinite;
 }
 ```
 
-### 5.3 反馈机制
+### 3. 涟漪效果 (Ripple Effect)
+```javascript
+// 为按钮添加涟漪效果的通用函数
+function addRippleEffect(element, event) {
+  const ripple = document.createElement('div');
+  const rect = element.getBoundingClientRect();
+  const size = Math.max(rect.height, rect.width);
+  const x = event.clientX - rect.left - size / 2;
+  const y = event.clientY - rect.top - size / 2;
+  
+  ripple.style.cssText = `
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(0);
+    animation: ripple 0.6s linear;
+    width: ${size}px;
+    height: ${size}px;
+    left: ${x}px;
+    top: ${y}px;
+  `;
+  
+  element.style.position = 'relative';
+  element.style.overflow = 'hidden';
+  element.appendChild(ripple);
+  
+  setTimeout(() => ripple.remove(), 600);
+}
+```
 
-#### 成功反馈
-- 绿色状态指示器
-- 成功消息提示
-- 轻微震动动画
+---
 
-#### 错误反馈
-- 红色状态指示器
-- 错误消息提示
-- 输入框边框变红
+## 图标系统
 
-#### 警告反馈
-- 黄色状态指示器
-- 警告消息提示
-- 图标闪烁
+### 图标库
+**主要图标库**: FontAwesome 6.5.1
+**CDN链接**: `https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css`
 
-## 6. 响应式设计
+### 图标尺寸规范
+```css
+--icon-xs: 0.75rem     /* 12px */
+--icon-sm: 0.875rem    /* 14px */
+--icon-base: 1rem      /* 16px */
+--icon-lg: 1.125rem    /* 18px */
+--icon-xl: 1.25rem     /* 20px */
+--icon-2xl: 1.5rem     /* 24px */
+--icon-3xl: 1.875rem   /* 30px */
+--icon-4xl: 2.25rem    /* 36px */
+```
 
-### 6.1 移动端适配
-- **触摸友好**: 按钮最小尺寸 44px
-- **简化导航**: 汉堡菜单
-- **垂直布局**: 单列布局
-- **大字体**: 确保可读性
+### 核心图标映射
+- **品牌图标**: `fas fa-lightbulb` (灵感灯泡)
+- **登录**: `fas fa-rocket` (火箭)
+- **灵感**: `fas fa-magic` (魔法棒)
+- **构建**: `fas fa-tools` (工具)
+- **空间**: `fas fa-cube` (立方体)
+- **收益**: `fas fa-chart-line` (图表)
+- **广场**: `fas fa-store` (商店)
+- **个人**: `fas fa-user-circle` (用户)
+- **代币**: `fas fa-coins` (代币)
 
-### 6.2 平板适配
-- **双列布局**: 充分利用屏幕空间
-- **触摸优化**: 保持触摸友好
-- **侧边栏**: 可折叠侧边栏
+---
 
-### 6.3 桌面端适配
-- **多列布局**: 充分利用宽屏
-- **悬停效果**: 丰富的交互效果
-- **快捷键**: 支持键盘操作
+## 响应式设计
 
-## 7. 可访问性设计
+### 断点系统
+```css
+/* 移动端优先 */
+@media (min-width: 640px) { /* sm */ }
+@media (min-width: 768px) { /* md */ }
+@media (min-width: 1024px) { /* lg */ }
+@media (min-width: 1280px) { /* xl */ }
+@media (min-width: 1536px) { /* 2xl */ }
+```
 
-### 7.1 颜色对比度
-- **文本对比度**: 至少 4.5:1
-- **大文本对比度**: 至少 3:1
+### 设备适配
+- **主要目标**: iPhone 14 Pro (375×812px)
+- **兼容设备**: iPhone 12/13/14 系列
+- **最小支持**: iPhone SE (375×667px)
+
+---
+
+## 无障碍设计
+
+### 1. 颜色对比度
+- **文字对比度**: 至少 4.5:1 (WCAG AA)
+- **大文字对比度**: 至少 3:1 (WCAG AA)
 - **UI元素对比度**: 至少 3:1
 
-### 7.2 键盘导航
-- **Tab顺序**: 逻辑化的Tab顺序
-- **焦点指示**: 清晰的焦点样式
-- **快捷键**: 常用操作的快捷键
+### 2. 交互元素
+- **最小点击区域**: 44×44px (符合Apple HIG)
+- **键盘导航**: 支持Tab键遍历
+- **焦点状态**: 明显的焦点指示器
 
-### 7.3 屏幕阅读器
-- **语义化HTML**: 使用正确的HTML标签
-- **ARIA标签**: 提供额外的可访问性信息
-- **替代文本**: 为图片提供alt文本
+### 3. 语音辅助
+- **全图标语音标签**: 点击朗读功能描述
+- **语音控制**: 支持"保存灵感"、"发布应用"等指令
+- **头部姿态识别**: 通过摄像头点头确认操作
 
-## 8. 图标系统
+---
 
-### 8.1 图标风格
-- **线性图标**: 简洁的线条风格
-- **统一粗细**: 2px线条粗细
-- **圆角处理**: 柔和的圆角
-- **24px标准**: 标准尺寸24px
+## 性能优化
 
-### 8.2 常用图标
-- **导航图标**: 首页、机器人、数据、设置
-- **操作图标**: 添加、编辑、删除、导出
-- **状态图标**: 成功、警告、错误、加载
-- **功能图标**: 搜索、筛选、排序、刷新
+### 1. 资源加载
+- **图片优化**: 使用WebP格式，渐进式加载
+- **字体优化**: 字体预加载，fallback字体
+- **CSS优化**: 关键CSS内联，非关键CSS异步加载
 
-## 9. 设计资源
+### 2. 动画性能
+- **硬件加速**: 使用transform和opacity属性
+- **避免重排**: 不改变布局的动画
+- **帧率控制**: 保持60fps流畅度
 
-### 9.1 设计工具
-- **Figma**: 主要设计工具
-- **Sketch**: 备选设计工具
-- **Adobe XD**: 原型设计
+---
 
-### 9.2 资源库
-- **图标库**: Heroicons, Lucide Icons
+## 开发规范
+
+### 1. CSS类命名
+遵循BEM命名约定：
+```css
+/* Block__Element--Modifier */
+.card { }
+.card__header { }
+.card__header--highlighted { }
+```
+
+### 2. 组件结构
+```html
+<!-- 标准组件结构 -->
+<div class="component-name">
+  <header class="component-name__header">
+    <!-- 头部内容 -->
+  </header>
+  <main class="component-name__content">
+    <!-- 主要内容 -->
+  </main>
+  <footer class="component-name__footer">
+    <!-- 底部内容 -->
+  </footer>
+</div>
+```
+
+### 3. 注释规范
+```css
+/* ==========================================================================
+   组件名称
+   ========================================================================== */
+
+/**
+ * 组件说明
+ * 1. 设计要点说明
+ * 2. 使用场景说明
+ */
+.component {
+  /* 具体样式 */
+}
+```
+
+---
+
+## 设计资源
+
+### 1. 设计工具
+- **原型工具**: 直接使用HTML/CSS实现
+- **图标资源**: FontAwesome
 - **图片资源**: Unsplash, Pexels
-- **字体资源**: Google Fonts
+- **字体资源**: Apple系统字体
 
-### 9.3 设计系统
-- **组件库**: 基于Tailwind CSS
-- **设计令牌**: CSS变量管理
-- **文档**: Storybook组件文档
+### 2. 颜色工具
+- **色彩搭配**: Adobe Color, Coolors.co
+- **对比度检测**: WebAIM Contrast Checker
+- **调色板生成**: Material Design Color Tool
 
-## 10. 实施指南
+### 3. 参考资源
+- **设计规范**: Apple Human Interface Guidelines
+- **交互模式**: iOS Human Interface Guidelines
+- **可访问性**: WCAG 2.1 Guidelines
 
-### 10.1 开发规范
-- **CSS类命名**: BEM方法论
-- **组件化开发**: 可复用组件
-- **响应式优先**: 移动端优先设计
+---
 
-### 10.2 质量保证
-- **设计审查**: 定期设计审查
-- **用户测试**: 用户反馈收集
-- **性能优化**: 加载速度优化
+## 版本历史
 
-### 10.3 维护更新
-- **版本控制**: 设计系统版本管理
-- **文档更新**: 及时更新设计文档
-- **团队培训**: 设计规范培训 
+### v1.0 (当前版本)
+- ✅ 完成基础色彩系统
+- ✅ 建立字体规范
+- ✅ 实现玻璃拟态效果
+- ✅ 完成核心组件库
+- ✅ 实现设备框架模拟
+- ✅ 添加动画交互系统
+- ✅ 优化无障碍设计
+
+### 未来计划
+- 🔄 多语言支持
+- 🔄 深色/浅色主题切换
+- 🔄 自定义主题系统
+- 🔄 更多动画效果
+- 🔄 高级交互组件
+
+---
+
+*本设计规范文档将随项目发展持续更新和完善。* 
