@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>欢迎来到 Aha</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .glow-text {
+            background: linear-gradient(45deg, #8b5cf6, #06b6d4, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.8)); }
+            to { filter: drop-shadow(0 0 20px rgba(6, 182, 212, 0.8)); }
+        }
+
+        .particle-animation {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: linear-gradient(45deg, #8b5cf6, #06b6d4);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.8; }
+            25% { transform: translateY(-20px) rotate(90deg); opacity: 1; }
+            50% { transform: translateY(-40px) rotate(180deg); opacity: 0.6; }
+            75% { transform: translateY(-20px) rotate(270deg); opacity: 1; }
+        }
+
+        .glassmorphism {
+            background: rgba(139, 92, 246, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .pulse-button {
+            animation: pulse-glow 2s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.4); }
+            50% { box-shadow: 0 0 30px rgba(139, 92, 246, 0.8), 0 0 40px rgba(6, 182, 212, 0.4); }
+            100% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.4); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 min-h-screen text-white relative overflow-hidden">
+    <!-- 动态粒子背景 -->
+    <div class="absolute inset-0 overflow-hidden">
+        <div class="particle-animation" style="top: 10%; left: 20%; animation-delay: 0s;"></div>
+        <div class="particle-animation" style="top: 20%; left: 80%; animation-delay: 1s;"></div>
+        <div class="particle-animation" style="top: 60%; left: 10%; animation-delay: 2s;"></div>
+        <div class="particle-animation" style="top: 80%; left: 70%; animation-delay: 3s;"></div>
+        <div class="particle-animation" style="top: 40%; left: 90%; animation-delay: 4s;"></div>
+        <div class="particle-animation" style="top: 70%; left: 40%; animation-delay: 5s;"></div>
+    </div>
+
+    <!-- 状态栏 -->
+    <div class="flex justify-between items-center px-6 py-2 text-sm">
+        <span class="text-purple-300 font-semibold">9:41</span>
+        <div class="flex items-center space-x-2">
+            <div class="flex space-x-1">
+                <div class="w-1 h-3 bg-purple-400 rounded-full"></div>
+                <div class="w-1 h-4 bg-purple-400 rounded-full"></div>
+                <div class="w-1 h-5 bg-purple-400 rounded-full"></div>
+                <div class="w-1 h-6 bg-purple-400 rounded-full"></div>
+            </div>
+            <i class="fas fa-wifi text-purple-400 text-sm"></i>
+            <div class="w-6 h-3 border border-purple-400 rounded-sm relative">
+                <div class="absolute inset-0.5 bg-gradient-to-r from-green-400 to-purple-500 rounded-sm"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主要内容 -->
+    <div class="relative z-10 flex flex-col h-screen">
+        <!-- Logo 和标题区域 -->
+        <div class="flex-1 flex flex-col justify-center items-center px-8">
+            <!-- Logo -->
+            <div class="mb-8 relative">
+                <div class="w-24 h-24 bg-gradient-to-r from-purple-500 via-blue-500 to-green-400 rounded-3xl flex items-center justify-center relative pulse-button">
+                    <i class="fas fa-lightbulb text-white text-4xl"></i>
+                    <div class="absolute -top-2 -right-2 w-6 h-6 bg-green-400 rounded-full flex items-center justify-center">
+                        <i class="fas fa-sparkles text-gray-900 text-xs"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 标题 -->
+            <h1 class="text-5xl font-bold mb-4 glow-text text-center">Aha</h1>
+            <h2 class="text-xl text-purple-200 mb-2 text-center font-light">灵感变现即时操作系统</h2>
+            <p class="text-gray-400 text-center text-sm mb-12 leading-relaxed max-w-xs">
+                让每个灵感瞬间都能成为<br>可持续增值的数字资产
+            </p>
+
+            <!-- 特色功能展示 -->
+            <div class="grid grid-cols-3 gap-4 mb-12 w-full max-w-sm">
+                <div class="glassmorphism rounded-2xl p-4 text-center">
+                    <i class="fas fa-voice text-purple-400 text-2xl mb-2"></i>
+                    <p class="text-xs text-purple-200">语音记录</p>
+                </div>
+                <div class="glassmorphism rounded-2xl p-4 text-center">
+                    <i class="fas fa-magic text-blue-400 text-2xl mb-2"></i>
+                    <p class="text-xs text-blue-200">AI生成</p>
+                </div>
+                <div class="glassmorphism rounded-2xl p-4 text-center">
+                    <i class="fas fa-coins text-green-400 text-2xl mb-2"></i>
+                    <p class="text-xs text-green-200">即时变现</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 登录/注册区域 -->
+        <div class="px-8 pb-8">
+            <!-- 社交登录 -->
+            <div class="space-y-4 mb-6">
+                <button class="w-full glassmorphism rounded-2xl py-4 px-6 flex items-center justify-center space-x-3 hover:bg-purple-500/20 transition-all duration-300">
+                    <i class="fab fa-google text-white text-xl"></i>
+                    <span class="text-white font-medium">继续使用 Google</span>
+                </button>
+                
+                <button class="w-full glassmorphism rounded-2xl py-4 px-6 flex items-center justify-center space-x-3 hover:bg-green-500/20 transition-all duration-300">
+                    <i class="fab fa-weixin text-green-400 text-xl"></i>
+                    <span class="text-white font-medium">继续使用微信</span>
+                </button>
+            </div>
+
+            <!-- 分割线 -->
+            <div class="flex items-center my-6">
+                <div class="flex-1 h-px bg-gradient-to-r from-transparent via-purple-500 to-transparent"></div>
+                <span class="px-4 text-gray-400 text-sm">或</span>
+                <div class="flex-1 h-px bg-gradient-to-r from-transparent via-purple-500 to-transparent"></div>
+            </div>
+
+            <!-- 邮箱登录 -->
+            <div class="space-y-4 mb-6">
+                <div class="relative">
+                    <input type="email" placeholder="邮箱地址" 
+                           class="w-full glassmorphism rounded-2xl py-4 px-6 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                    <i class="fas fa-envelope absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                </div>
+                
+                <div class="relative">
+                    <input type="password" placeholder="密码" 
+                           class="w-full glassmorphism rounded-2xl py-4 px-6 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent pr-16">
+                    <button class="absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 登录按钮 -->
+            <button class="w-full bg-gradient-to-r from-purple-500 to-blue-500 rounded-2xl py-4 px-6 text-white font-semibold text-lg pulse-button hover:from-purple-600 hover:to-blue-600 transition-all duration-300 mb-4">
+                开启灵感之旅
+            </button>
+
+            <!-- 注册和忘记密码 -->
+            <div class="flex justify-between items-center text-sm">
+                <button class="text-purple-300 hover:text-purple-200 transition-colors">
+                    没有账户？立即注册
+                </button>
+                <button class="text-gray-400 hover:text-gray-300 transition-colors">
+                    忘记密码？
+                </button>
+            </div>
+
+            <!-- 用户协议 -->
+            <p class="text-xs text-gray-500 text-center mt-6 leading-relaxed">
+                继续即表示您同意我们的 
+                <span class="text-purple-400">用户协议</span> 和 
+                <span class="text-purple-400">隐私政策</span>
+            </p>
+        </div>
+    </div>
+
+    <!-- 底部导航指示器 -->
+    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2">
+        <div class="w-32 h-1 bg-white rounded-full opacity-30"></div>
+    </div>
+</body>
+</html>

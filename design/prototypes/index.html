@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aha - 灵感变现即时操作系统 | 高保真HTML原型</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .prototype-frame {
+            border: 2px solid #4f46e5;
+            border-radius: 16px;
+            box-shadow: 0 0 20px rgba(79, 70, 229, 0.3);
+            margin-bottom: 2rem;
+            background: linear-gradient(145deg, #1e1b4b, #312e81);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .prototype-frame::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(79, 70, 229, 0.1) 50%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .mobile-frame {
+            background: #0f0f23;
+            border-radius: 16px 16px 0 0;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .mobile-status {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            color: #8b5cf6;
+            font-weight: 600;
+        }
+
+        .mobile-indicators {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .signal-bar {
+            width: 3px;
+            height: 8px;
+            background: #8b5cf6;
+            border-radius: 1px;
+        }
+
+        .signal-bar:nth-child(2) { height: 10px; }
+        .signal-bar:nth-child(3) { height: 12px; }
+        .signal-bar:nth-child(4) { height: 14px; }
+
+        .battery {
+            width: 20px;
+            height: 10px;
+            border: 1px solid #8b5cf6;
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .battery::after {
+            content: '';
+            position: absolute;
+            right: -3px;
+            top: 2px;
+            width: 2px;
+            height: 6px;
+            background: #8b5cf6;
+            border-radius: 0 1px 1px 0;
+        }
+
+        .battery-level {
+            position: absolute;
+            left: 1px;
+            top: 1px;
+            bottom: 1px;
+            width: 80%;
+            background: linear-gradient(90deg, #10b981, #8b5cf6);
+            border-radius: 1px;
+        }
+
+        .glow-text {
+            background: linear-gradient(45deg, #8b5cf6, #06b6d4, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 5px rgba(139, 92, 246, 0.5)); }
+            to { filter: drop-shadow(0 0 15px rgba(139, 92, 246, 0.8)); }
+        }
+
+        .particle-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(79, 70, 229, 0.4);
+        }
+
+        .tech-grid {
+            background-image: 
+                linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen tech-grid">
+    <div class="particle-bg"></div>
+    
+    <!-- Header -->
+    <header class="relative z-10 bg-gradient-to-r from-purple-900/80 to-indigo-900/80 backdrop-blur-sm border-b border-purple-500/30">
+        <div class="max-w-7xl mx-auto px-4 py-8">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-6">
+                    <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-xl flex items-center justify-center relative">
+                        <i class="fas fa-lightbulb text-white text-xl"></i>
+                        <div class="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full animate-pulse"></div>
+                    </div>
+                    <div>
+                        <h1 class="text-3xl font-bold glow-text">Aha</h1>
+                        <p class="text-purple-300 text-lg">灵感变现即时操作系统</p>
+                        <p class="text-gray-400 text-sm">高保真HTML原型展示</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <div class="text-right">
+                        <p class="text-purple-300 font-semibold">显化应用原型</p>
+                        <p class="text-gray-400 text-sm">移动端优先设计</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="relative z-10 max-w-7xl mx-auto px-4 py-8">
+        <!-- Introduction -->
+        <div class="mb-12 p-8 bg-gradient-to-r from-purple-800/40 to-indigo-800/40 backdrop-blur-sm rounded-2xl border border-purple-500/30 card-hover">
+            <h2 class="text-2xl font-bold mb-6 glow-text">项目概述</h2>
+            <p class="text-purple-100 mb-6 text-lg leading-relaxed">
+                Aha是全球首个灵感变现即时操作系统，让用户通过零代码工具将灵感记录、转化为可持续变现的商业化应用工具，并在社交化空间中实现装扮、分享与经济收益。
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-sm">
+                <div class="flex items-center space-x-3 p-4 bg-purple-700/30 rounded-lg">
+                    <i class="fas fa-palette text-purple-400 text-xl"></i>
+                    <span class="text-purple-100">Tailwind CSS + FontAwesome</span>
+                </div>
+                <div class="flex items-center space-x-3 p-4 bg-blue-700/30 rounded-lg">
+                    <i class="fas fa-mobile-alt text-blue-400 text-xl"></i>
+                    <span class="text-blue-100">移动端优先设计</span>
+                </div>
+                <div class="flex items-center space-x-3 p-4 bg-green-700/30 rounded-lg">
+                    <i class="fas fa-image text-green-400 text-xl"></i>
+                    <span class="text-green-100">Unsplash 高质量图片</span>
+                </div>
+                <div class="flex items-center space-x-3 p-4 bg-indigo-700/30 rounded-lg">
+                    <i class="fas fa-moon text-indigo-400 text-xl"></i>
+                    <span class="text-indigo-100">科技暗黑主题</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prototypes Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- 1. 欢迎页/登录页 -->
+            <div class="prototype-frame card-hover">
+                <div class="mobile-frame">
+                    <div class="mobile-status">
+                        <span>9:41</span>
+                    </div>
+                    <div class="mobile-indicators">
+                        <div class="flex">
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                        </div>
+                        <i class="fas fa-wifi text-purple-400 text-xs"></i>
+                        <div class="battery">
+                            <div class="battery-level"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 bg-purple-900/20">
+                    <h3 class="text-lg font-semibold text-purple-300 mb-2">欢迎页/登录</h3>
+                    <p class="text-gray-400 text-sm">welcome.html</p>
+                </div>
+                <iframe src="welcome.html" class="w-full h-[600px] bg-gray-900" frameborder="0"></iframe>
+            </div>
+
+            <!-- 2. 首页/灵感广场 -->
+            <div class="prototype-frame card-hover">
+                <div class="mobile-frame">
+                    <div class="mobile-status">
+                        <span>9:41</span>
+                    </div>
+                    <div class="mobile-indicators">
+                        <div class="flex">
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                        </div>
+                        <i class="fas fa-wifi text-purple-400 text-xs"></i>
+                        <div class="battery">
+                            <div class="battery-level"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 bg-purple-900/20">
+                    <h3 class="text-lg font-semibold text-purple-300 mb-2">首页/灵感广场</h3>
+                    <p class="text-gray-400 text-sm">home.html</p>
+                </div>
+                <iframe src="home.html" class="w-full h-[600px] bg-gray-900" frameborder="0"></iframe>
+            </div>
+
+            <!-- 3. 灵感记录器 -->
+            <div class="prototype-frame card-hover">
+                <div class="mobile-frame">
+                    <div class="mobile-status">
+                        <span>9:41</span>
+                    </div>
+                    <div class="mobile-indicators">
+                        <div class="flex">
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                        </div>
+                        <i class="fas fa-wifi text-purple-400 text-xs"></i>
+                        <div class="battery">
+                            <div class="battery-level"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 bg-purple-900/20">
+                    <h3 class="text-lg font-semibold text-purple-300 mb-2">灵感记录器</h3>
+                    <p class="text-gray-400 text-sm">inspiration-capture.html</p>
+                </div>
+                <iframe src="inspiration-capture.html" class="w-full h-[600px] bg-gray-900" frameborder="0"></iframe>
+            </div>
+
+            <!-- 4. 应用工厂 -->
+            <div class="prototype-frame card-hover">
+                <div class="mobile-frame">
+                    <div class="mobile-status">
+                        <span>9:41</span>
+                    </div>
+                    <div class="mobile-indicators">
+                        <div class="flex">
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                        </div>
+                        <i class="fas fa-wifi text-purple-400 text-xs"></i>
+                        <div class="battery">
+                            <div class="battery-level"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 bg-purple-900/20">
+                    <h3 class="text-lg font-semibold text-purple-300 mb-2">应用工厂</h3>
+                    <p class="text-gray-400 text-sm">app-factory.html</p>
+                </div>
+                <iframe src="app-factory.html" class="w-full h-[600px] bg-gray-900" frameborder="0"></iframe>
+            </div>
+
+            <!-- 5. 数字空间 -->
+            <div class="prototype-frame card-hover">
+                <div class="mobile-frame">
+                    <div class="mobile-status">
+                        <span>9:41</span>
+                    </div>
+                    <div class="mobile-indicators">
+                        <div class="flex">
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                        </div>
+                        <i class="fas fa-wifi text-purple-400 text-xs"></i>
+                        <div class="battery">
+                            <div class="battery-level"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 bg-purple-900/20">
+                    <h3 class="text-lg font-semibold text-purple-300 mb-2">数字空间</h3>
+                    <p class="text-gray-400 text-sm">digital-space.html</p>
+                </div>
+                <iframe src="digital-space.html" class="w-full h-[600px] bg-gray-900" frameborder="0"></iframe>
+            </div>
+
+            <!-- 6. 收益中心 -->
+            <div class="prototype-frame card-hover">
+                <div class="mobile-frame">
+                    <div class="mobile-status">
+                        <span>9:41</span>
+                    </div>
+                    <div class="mobile-indicators">
+                        <div class="flex">
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                        </div>
+                        <i class="fas fa-wifi text-purple-400 text-xs"></i>
+                        <div class="battery">
+                            <div class="battery-level"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 bg-purple-900/20">
+                    <h3 class="text-lg font-semibold text-purple-300 mb-2">收益中心</h3>
+                    <p class="text-gray-400 text-sm">earnings-center.html</p>
+                </div>
+                <iframe src="earnings-center.html" class="w-full h-[600px] bg-gray-900" frameborder="0"></iframe>
+            </div>
+
+            <!-- 7. 应用广场 -->
+            <div class="prototype-frame card-hover">
+                <div class="mobile-frame">
+                    <div class="mobile-status">
+                        <span>9:41</span>
+                    </div>
+                    <div class="mobile-indicators">
+                        <div class="flex">
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                        </div>
+                        <i class="fas fa-wifi text-purple-400 text-xs"></i>
+                        <div class="battery">
+                            <div class="battery-level"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 bg-purple-900/20">
+                    <h3 class="text-lg font-semibold text-purple-300 mb-2">应用广场</h3>
+                    <p class="text-gray-400 text-sm">app-marketplace.html</p>
+                </div>
+                <iframe src="app-marketplace.html" class="w-full h-[600px] bg-gray-900" frameborder="0"></iframe>
+            </div>
+
+            <!-- 8. 个人中心 -->
+            <div class="prototype-frame card-hover">
+                <div class="mobile-frame">
+                    <div class="mobile-status">
+                        <span>9:41</span>
+                    </div>
+                    <div class="mobile-indicators">
+                        <div class="flex">
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                            <div class="signal-bar"></div>
+                        </div>
+                        <i class="fas fa-wifi text-purple-400 text-xs"></i>
+                        <div class="battery">
+                            <div class="battery-level"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 bg-purple-900/20">
+                    <h3 class="text-lg font-semibold text-purple-300 mb-2">个人中心</h3>
+                    <p class="text-gray-400 text-sm">profile.html</p>
+                </div>
+                <iframe src="profile.html" class="w-full h-[600px] bg-gray-900" frameborder="0"></iframe>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative z-10 bg-gradient-to-r from-purple-900/60 to-indigo-900/60 backdrop-blur-sm border-t border-purple-500/30 mt-16">
+        <div class="max-w-7xl mx-auto px-4 py-8">
+            <div class="text-center">
+                <p class="text-purple-200 font-semibold text-lg">Aha - 灵感变现即时操作系统</p>
+                <p class="text-gray-400 mt-2">让每个灵感瞬间都能成为可持续增值的数字资产</p>
+                <p class="text-purple-300 text-sm mt-4">
+                    技术栈: HTML5, Tailwind CSS, FontAwesome | 图片来源: Unsplash | 设计风格: 科技暗黑主题
+                </p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

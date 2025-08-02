@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>灵感广场 - Aha</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .glassmorphism {
+            background: rgba(139, 92, 246, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .glow-card {
+            transition: all 0.3s ease;
+        }
+
+        .glow-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+        }
+
+        .floating-action {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .revenue-pulse {
+            animation: revenue-glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes revenue-glow {
+            from { box-shadow: 0 0 10px rgba(16, 185, 129, 0.5); }
+            to { box-shadow: 0 0 20px rgba(16, 185, 129, 0.8); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 min-h-screen text-white">
+    <!-- 状态栏 -->
+    <div class="flex justify-between items-center px-6 py-2 text-sm">
+        <span class="text-purple-300 font-semibold">9:41</span>
+        <div class="flex items-center space-x-2">
+            <div class="flex space-x-1">
+                <div class="w-1 h-3 bg-purple-400 rounded-full"></div>
+                <div class="w-1 h-4 bg-purple-400 rounded-full"></div>
+                <div class="w-1 h-5 bg-purple-400 rounded-full"></div>
+                <div class="w-1 h-6 bg-purple-400 rounded-full"></div>
+            </div>
+            <i class="fas fa-wifi text-purple-400 text-sm"></i>
+            <div class="w-6 h-3 border border-purple-400 rounded-sm relative">
+                <div class="absolute inset-0.5 bg-gradient-to-r from-green-400 to-purple-500 rounded-sm"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 顶部导航 -->
+    <div class="px-6 py-4">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" 
+                     alt="用户头像" class="w-10 h-10 rounded-full border-2 border-purple-400">
+                <!-- 图片来源: https://unsplash.com/photos/a-man-in-a-blue-shirt-is-posing-for-a-picture-507003211169 -->
+                <div>
+                    <h1 class="text-lg font-semibold text-white">早安，创想家</h1>
+                    <p class="text-xs text-purple-300">今天又有新的灵感了吗？</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3">
+                <button class="relative">
+                    <i class="fas fa-bell text-purple-300 text-xl"></i>
+                    <div class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full text-xs flex items-center justify-center">
+                        <span class="text-white text-xs">3</span>
+                    </div>
+                </button>
+                <button class="glassmorphism rounded-full p-2">
+                    <i class="fas fa-search text-purple-300"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 收益概览卡片 -->
+    <div class="px-6 mb-6">
+        <div class="glassmorphism rounded-3xl p-6 revenue-pulse">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <p class="text-gray-400 text-sm">今日收益</p>
+                    <h2 class="text-2xl font-bold text-green-400">¥247.85</h2>
+                </div>
+                <div class="text-right">
+                    <p class="text-gray-400 text-sm">$AHA 余额</p>
+                    <h3 class="text-lg font-semibold text-purple-300">1,247 <span class="text-sm">$AHA</span></h3>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4 text-sm">
+                <div class="flex items-center space-x-1">
+                    <i class="fas fa-arrow-up text-green-400"></i>
+                    <span class="text-green-400">+23.5%</span>
+                </div>
+                <span class="text-gray-400">较昨日</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 快速操作 -->
+    <div class="px-6 mb-6">
+        <div class="grid grid-cols-4 gap-4">
+            <button class="glassmorphism rounded-2xl p-4 text-center glow-card floating-action">
+                <i class="fas fa-plus text-purple-400 text-2xl mb-2"></i>
+                <p class="text-xs text-purple-200">新灵感</p>
+            </button>
+            <button class="glassmorphism rounded-2xl p-4 text-center glow-card">
+                <i class="fas fa-cogs text-blue-400 text-2xl mb-2"></i>
+                <p class="text-xs text-blue-200">应用工厂</p>
+            </button>
+            <button class="glassmorphism rounded-2xl p-4 text-center glow-card">
+                <i class="fas fa-palette text-green-400 text-2xl mb-2"></i>
+                <p class="text-xs text-green-200">装扮空间</p>
+            </button>
+            <button class="glassmorphism rounded-2xl p-4 text-center glow-card">
+                <i class="fas fa-chart-line text-yellow-400 text-2xl mb-2"></i>
+                <p class="text-xs text-yellow-200">收益分析</p>
+            </button>
+        </div>
+    </div>
+
+    <!-- 我的灵感 -->
+    <div class="px-6 mb-6">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold text-white">我的灵感</h3>
+            <button class="text-purple-300 text-sm">查看全部</button>
+        </div>
+        <div class="space-y-3">
+            <div class="glassmorphism rounded-2xl p-4 glow-card">
+                <div class="flex items-start justify-between">
+                    <div class="flex-1">
+                        <h4 class="font-medium text-white mb-1">智能喂养助手</h4>
+                        <p class="text-gray-400 text-sm mb-2">帮助新手宝妈计算婴儿营养配比</p>
+                        <div class="flex items-center space-x-2">
+                            <span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded-full">已发布</span>
+                            <span class="text-gray-400 text-xs">收益: ¥89.50</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-baby text-pink-400 text-2xl"></i>
+                </div>
+            </div>
+            
+            <div class="glassmorphism rounded-2xl p-4 glow-card">
+                <div class="flex items-start justify-between">
+                    <div class="flex-1">
+                        <h4 class="font-medium text-white mb-1">AI健身教练</h4>
+                        <p class="text-gray-400 text-sm mb-2">个性化健身计划和动作纠正</p>
+                        <div class="flex items-center space-x-2">
+                            <span class="px-2 py-1 bg-blue-500/20 text-blue-400 text-xs rounded-full">开发中</span>
+                            <span class="text-gray-400 text-xs">预期收益: ¥200+</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-dumbbell text-orange-400 text-2xl"></i>
+                </div>
+            </div>
+            
+            <div class="glassmorphism rounded-2xl p-4 glow-card">
+                <div class="flex items-start justify-between">
+                    <div class="flex-1">
+                        <h4 class="font-medium text-white mb-1">植物识别器</h4>
+                        <p class="text-gray-400 text-sm mb-2">拍照识别植物并获取养护建议</p>
+                        <div class="flex items-center space-x-2">
+                            <span class="px-2 py-1 bg-purple-500/20 text-purple-400 text-xs rounded-full">灵感中</span>
+                            <span class="text-gray-400 text-xs">2小时前</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-leaf text-green-400 text-2xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 热门灵感 -->
+    <div class="px-6 mb-6">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold text-white">热门灵感</h3>
+            <button class="text-purple-300 text-sm">更多推荐</button>
+        </div>
+        <div class="horizontal-scroll overflow-x-auto">
+            <div class="flex space-x-4 pb-2">
+                <div class="glassmorphism rounded-2xl p-4 min-w-[280px] glow-card">
+                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=280&h=120&fit=crop" 
+                         alt="记账助手" class="w-full h-20 object-cover rounded-xl mb-3">
+                    <!-- 图片来源: https://unsplash.com/photos/laptop-computer-showing-c-application-551650975-87deedd944c3 -->
+                    <h4 class="font-medium text-white mb-1">智能记账助手</h4>
+                    <p class="text-gray-400 text-sm mb-2">AI自动分类账单</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-green-400 text-sm">月收益 ¥560</span>
+                        <button class="text-purple-300 text-sm">查看详情</button>
+                    </div>
+                </div>
+                
+                <div class="glassmorphism rounded-2xl p-4 min-w-[280px] glow-card">
+                    <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=280&h=120&fit=crop" 
+                         alt="学习计划" class="w-full h-20 object-cover rounded-xl mb-3">
+                    <!-- 图片来源: https://unsplash.com/photos/macbook-pro-showing-programming-language-434030216411-0b793f4b4173 -->
+                    <h4 class="font-medium text-white mb-1">个性化学习计划</h4>
+                    <p class="text-gray-400 text-sm mb-2">AI定制学习路径</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-green-400 text-sm">月收益 ¥890</span>
+                        <button class="text-purple-300 text-sm">查看详情</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部导航 -->
+    <div class="fixed bottom-0 left-0 right-0 glassmorphism border-t border-purple-500/30">
+        <div class="grid grid-cols-5 py-2">
+            <button class="flex flex-col items-center py-2 text-purple-400">
+                <i class="fas fa-home text-xl mb-1"></i>
+                <span class="text-xs">首页</span>
+            </button>
+            <button class="flex flex-col items-center py-2 text-gray-400">
+                <i class="fas fa-lightbulb text-xl mb-1"></i>
+                <span class="text-xs">灵感</span>
+            </button>
+            <button class="flex flex-col items-center py-2 text-gray-400 relative">
+                <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center -mt-6 floating-action">
+                    <i class="fas fa-plus text-white text-xl"></i>
+                </div>
+                <span class="text-xs mt-1">创建</span>
+            </button>
+            <button class="flex flex-col items-center py-2 text-gray-400">
+                <i class="fas fa-store text-xl mb-1"></i>
+                <span class="text-xs">广场</span>
+            </button>
+            <button class="flex flex-col items-center py-2 text-gray-400">
+                <i class="fas fa-user text-xl mb-1"></i>
+                <span class="text-xs">我的</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- 为底部导航留出空间 -->
+    <div class="h-20"></div>
+</body>
+</html>
