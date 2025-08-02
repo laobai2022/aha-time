@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>应用广场 - Aha</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .cyber-glow {
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+        }
+        
+        .neon-text {
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
+        }
+        
+        .ios-button {
+            border-radius: 12px;
+            transition: all 0.2s ease;
+        }
+        
+        .ios-button:active {
+            transform: scale(0.95);
+        }
+        
+        .app-card {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(168, 85, 247, 0.1));
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+        
+        .featured-app {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(56, 189, 248, 0.2));
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+        
+        .category-tab {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .category-tab.active {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-color: #3b82f6;
+        }
+        
+        .trending-badge {
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+        }
+        
+        @keyframes star-twinkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+        
+        .star-twinkle {
+            animation: star-twinkle 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+    <div class="min-h-screen">
+        <!-- Header -->
+        <div class="flex items-center justify-between p-6 pt-12 glassmorphism border-b border-gray-800">
+            <div class="flex items-center space-x-4">
+                <button class="w-10 h-10 glassmorphism rounded-2xl flex items-center justify-center ios-button">
+                    <i class="fas fa-arrow-left text-gray-300"></i>
+                </button>
+                <div>
+                    <h1 class="text-xl font-semibold neon-text">应用广场</h1>
+                    <p class="text-gray-400 text-sm">发现优质创意应用</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2">
+                <button class="px-4 py-2 glassmorphism rounded-xl text-sm ios-button">
+                    <i class="fas fa-heart mr-1"></i>收藏
+                </button>
+                <button class="px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl text-sm ios-button cyber-glow">
+                    <i class="fas fa-upload mr-1"></i>发布
+                </button>
+            </div>
+        </div>
+
+        <div class="p-6">
+            <!-- Search Bar -->
+            <div class="glassmorphism rounded-3xl p-4 mb-6">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-search text-gray-400 text-lg"></i>
+                    <input type="text" 
+                           placeholder="搜索应用、功能或创作者..." 
+                           class="flex-1 bg-transparent text-white placeholder-gray-400 focus:outline-none">
+                    <button class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center ios-button">
+                        <i class="fas fa-microphone text-white"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Hot Keywords -->
+            <div class="mb-6">
+                <p class="text-sm text-gray-400 mb-3">🔥 热搜关键词</p>
+                <div class="flex space-x-2 overflow-x-auto">
+                    <span class="px-3 py-1 bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-500/30 rounded-2xl text-sm whitespace-nowrap">育儿工具</span>
+                    <span class="px-3 py-1 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border border-blue-500/30 rounded-2xl text-sm whitespace-nowrap">AI助手</span>
+                    <span class="px-3 py-1 bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30 rounded-2xl text-sm whitespace-nowrap">生活记录</span>
+                    <span class="px-3 py-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-2xl text-sm whitespace-nowrap">健康管理</span>
+                </div>
+            </div>
+
+            <!-- Category Tabs -->
+            <div class="flex space-x-2 mb-6 overflow-x-auto">
+                <button class="category-tab active px-4 py-2 rounded-2xl text-sm font-medium whitespace-nowrap ios-button">
+                    全部
+                </button>
+                <button class="category-tab px-4 py-2 rounded-2xl text-sm font-medium whitespace-nowrap ios-button">
+                    生活类
+                </button>
+                <button class="category-tab px-4 py-2 rounded-2xl text-sm font-medium whitespace-nowrap ios-button">
+                    工具类
+                </button>
+                <button class="category-tab px-4 py-2 rounded-2xl text-sm font-medium whitespace-nowrap ios-button">
+                    娱乐类
+                </button>
+                <button class="category-tab px-4 py-2 rounded-2xl text-sm font-medium whitespace-nowrap ios-button">
+                    商务类
+                </button>
+                <button class="category-tab px-4 py-2 rounded-2xl text-sm font-medium whitespace-nowrap ios-button">
+                    教育类
+                </button>
+            </div>
+
+            <!-- Featured App -->
+            <div class="featured-app rounded-3xl p-6 mb-6 relative overflow-hidden">
+                <div class="absolute top-4 right-4">
+                    <span class="trending-badge px-3 py-1 rounded-2xl text-xs font-bold text-white">
+                        <i class="fas fa-fire mr-1"></i>本周精选
+                    </span>
+                </div>
+                
+                <div class="flex items-center space-x-4 mb-4">
+                    <div class="w-16 h-16 bg-gradient-to-r from-pink-500 to-rose-500 rounded-3xl flex items-center justify-center cyber-glow">
+                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=64&h=64&fit=crop" 
+                             alt="应用图标" 
+                             class="w-12 h-12 rounded-2xl object-cover">
+                        <!-- 图片来源: https://unsplash.com/photos/white-and-pink-digital-device-112ba8d25d1f -->
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-white mb-1">智能喂养助手</h3>
+                        <p class="text-gray-300 text-sm mb-2">科学营养计算 • 过敏原检测 • 食谱推荐</p>
+                        <div class="flex items-center space-x-3">
+                            <div class="flex items-center">
+                                <i class="fas fa-star text-yellow-400 star-twinkle"></i>
+                                <span class="text-sm text-white ml-1">4.9</span>
+                            </div>
+                            <span class="text-sm text-gray-400">8.2K 使用</span>
+                            <span class="text-sm text-green-400">¥0.5/次</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <p class="text-gray-300 text-sm mb-4">
+                    专为新手父母设计的AI智能喂养助手，帮助计算宝宝营养需求，检测过敏原，推荐健康食谱。已帮助2万+家庭实现科学喂养。
+                </p>
+                
+                <button class="w-full bg-gradient-to-r from-pink-500 to-rose-500 text-white py-3 px-6 rounded-2xl font-semibold ios-button cyber-glow">
+                    <i class="fas fa-play mr-2"></i>立即体验
+                </button>
+            </div>
+
+            <!-- App Grid -->
+            <div class="mb-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-white">🌟 热门应用</h3>
+                    <a href="#" class="text-sm text-blue-400">查看更多</a>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="app-card rounded-3xl p-4 ios-button">
+                        <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mb-3">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=48&h=48&fit=crop" 
+                                 alt="应用图标" 
+                                 class="w-10 h-10 rounded-xl object-cover">
+                            <!-- 图片来源: https://unsplash.com/photos/turned-on-monitoring-screen-bebda4e38f71 -->
+                        </div>
+                        <h4 class="font-semibold text-white text-sm mb-1">数据分析师</h4>
+                        <p class="text-xs text-gray-400 mb-2">Excel自动分析工具</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                <span class="text-xs text-white ml-1">4.8</span>
+                            </div>
+                            <span class="text-xs text-green-400">¥2/月</span>
+                        </div>
+                    </div>
+
+                    <div class="app-card rounded-3xl p-4 ios-button">
+                        <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mb-3">
+                            <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=48&h=48&fit=crop" 
+                                 alt="应用图标" 
+                                 class="w-10 h-10 rounded-xl object-cover">
+                            <!-- 图片来源: https://unsplash.com/photos/white-and-black-wooden-blocks-8e7e53415bb0 -->
+                        </div>
+                        <h4 class="font-semibold text-white text-sm mb-1">习惯养成器</h4>
+                        <p class="text-xs text-gray-400 mb-2">21天习惯培养计划</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                <span class="text-xs text-white ml-1">4.7</span>
+                            </div>
+                            <span class="text-xs text-blue-400">免费</span>
+                        </div>
+                    </div>
+
+                    <div class="app-card rounded-3xl p-4 ios-button">
+                        <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-3">
+                            <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=48&h=48&fit=crop" 
+                                 alt="应用图标" 
+                                 class="w-10 h-10 rounded-xl object-cover">
+                            <!-- 图片来源: https://unsplash.com/photos/a-pink-and-blue-abstract-background-with-curves-0cfed4f6a45d -->
+                        </div>
+                        <h4 class="font-semibold text-white text-sm mb-1">情绪日记</h4>
+                        <p class="text-xs text-gray-400 mb-2">AI情感分析记录</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                <span class="text-xs text-white ml-1">4.6</span>
+                            </div>
+                            <span class="text-xs text-green-400">¥1/月</span>
+                        </div>
+                    </div>
+
+                    <div class="app-card rounded-3xl p-4 ios-button">
+                        <div class="w-12 h-12 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-2xl flex items-center justify-center mb-3">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=48&h=48&fit=crop" 
+                                 alt="应用图标" 
+                                 class="w-10 h-10 rounded-xl object-cover">
+                            <!-- 图片来源: https://unsplash.com/photos/green-and-yellow-printed-textile-afdab827c52f -->
+                        </div>
+                        <h4 class="font-semibold text-white text-sm mb-1">投资助手</h4>
+                        <p class="text-xs text-gray-400 mb-2">理财规划与建议</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                <span class="text-xs text-white ml-1">4.9</span>
+                            </div>
+                            <span class="text-xs text-green-400">¥5/月</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Creator Spotlight -->
+            <div class="glassmorphism rounded-3xl p-6 mb-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-white flex items-center">
+                        <i class="fas fa-crown text-yellow-400 mr-2"></i>
+                        明星创作者
+                    </h3>
+                    <a href="#" class="text-sm text-blue-400">关注更多</a>
+                </div>
+
+                <div class="flex items-center space-x-4 mb-4">
+                    <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-3xl flex items-center justify-center cyber-glow">
+                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=64&h=64&fit=crop&crop=face" 
+                             alt="创作者头像" 
+                             class="w-14 h-14 rounded-2xl object-cover">
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="font-semibold text-white mb-1">创意工坊主</h4>
+                        <p class="text-gray-400 text-sm mb-2">专注育儿&生活工具开发</p>
+                        <div class="flex items-center space-x-4">
+                            <span class="text-sm text-blue-400">12 作品</span>
+                            <span class="text-sm text-green-400">2.3K 关注</span>
+                            <span class="text-sm text-yellow-400">¥8.6K 月收</span>
+                        </div>
+                    </div>
+                    <button class="px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl text-sm font-semibold ios-button">
+                        关注
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-3 gap-3">
+                    <div class="app-card rounded-2xl p-3 text-center">
+                        <div class="w-8 h-8 bg-blue-500 rounded-xl mx-auto mb-1"></div>
+                        <p class="text-xs text-white">营养计算</p>
+                    </div>
+                    <div class="app-card rounded-2xl p-3 text-center">
+                        <div class="w-8 h-8 bg-green-500 rounded-xl mx-auto mb-1"></div>
+                        <p class="text-xs text-white">成长记录</p>
+                    </div>
+                    <div class="app-card rounded-2xl p-3 text-center">
+                        <div class="w-8 h-8 bg-purple-500 rounded-xl mx-auto mb-1"></div>
+                        <p class="text-xs text-white">睡眠助手</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics -->
+            <div class="grid grid-cols-3 gap-4 mb-6">
+                <div class="glassmorphism rounded-2xl p-4 text-center">
+                    <p class="text-2xl font-bold text-blue-400 mb-1">1.2K+</p>
+                    <p class="text-xs text-gray-400">优质应用</p>
+                </div>
+                <div class="glassmorphism rounded-2xl p-4 text-center">
+                    <p class="text-2xl font-bold text-green-400 mb-1">50K+</p>
+                    <p class="text-xs text-gray-400">活跃用户</p>
+                </div>
+                <div class="glassmorphism rounded-2xl p-4 text-center">
+                    <p class="text-2xl font-bold text-yellow-400 mb-1">¥2.5M</p>
+                    <p class="text-xs text-gray-400">创作者收益</p>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="glassmorphism rounded-3xl p-6 text-center">
+                <i class="fas fa-lightbulb text-4xl text-yellow-400 mb-4"></i>
+                <h3 class="text-xl font-bold text-white mb-2">有创意想法？</h3>
+                <p class="text-gray-400 text-sm mb-6">
+                    零代码创建您的专属应用，让灵感瞬间变现！加入 8,000+ 创作者的变现行列。
+                </p>
+                <button class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-4 px-6 rounded-2xl font-semibold ios-button cyber-glow">
+                    <i class="fas fa-plus mr-2"></i>开始创作
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

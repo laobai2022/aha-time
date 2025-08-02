@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数字空间 - Aha</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .cyber-glow {
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+        }
+        
+        .neon-text {
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
+        }
+        
+        .ios-button {
+            border-radius: 12px;
+            transition: all 0.2s ease;
+        }
+        
+        .ios-button:active {
+            transform: scale(0.95);
+        }
+        
+        .space-bg {
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(168, 85, 247, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(34, 197, 94, 0.2) 0%, transparent 70%),
+                linear-gradient(135deg, #0f0f0f, #1a1a1a);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .space-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 25% 25%, #38bdf8 1px, transparent 1px),
+                radial-gradient(circle at 75% 75%, #a855f7 1px, transparent 1px);
+            background-size: 50px 50px, 80px 80px;
+            opacity: 0.3;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+        
+        .floating-element {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .pulse-glow {
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+        
+        .decoration-item {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(168, 85, 247, 0.2));
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+        
+        .visitor-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #38bdf8;
+            background: linear-gradient(135deg, #38bdf8, #a855f7);
+        }
+        
+        .stats-card {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(168, 85, 247, 0.1));
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+    <div class="min-h-screen">
+        <!-- Header -->
+        <div class="flex items-center justify-between p-6 pt-12 glassmorphism border-b border-gray-800">
+            <div class="flex items-center space-x-4">
+                <button class="w-10 h-10 glassmorphism rounded-2xl flex items-center justify-center ios-button">
+                    <i class="fas fa-arrow-left text-gray-300"></i>
+                </button>
+                <div>
+                    <h1 class="text-xl font-semibold neon-text">我的数字空间</h1>
+                    <p class="text-gray-400 text-sm">赛博茶馆主题</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2">
+                <button class="px-4 py-2 glassmorphism rounded-xl text-sm ios-button">
+                    <i class="fas fa-share-alt mr-1"></i>分享
+                </button>
+                <button class="px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl text-sm ios-button cyber-glow">
+                    <i class="fas fa-edit mr-1"></i>装扮
+                </button>
+            </div>
+        </div>
+
+        <!-- 3D Space View -->
+        <div class="space-bg h-80 relative p-6 flex items-center justify-center">
+            <!-- Floating Decorations -->
+            <div class="absolute top-8 left-8 floating-element">
+                <div class="w-16 h-16 glassmorphism rounded-full flex items-center justify-center pulse-glow">
+                    <i class="fas fa-atom text-blue-400 text-2xl"></i>
+                </div>
+            </div>
+            
+            <div class="absolute top-16 right-12 floating-element" style="animation-delay: 2s;">
+                <div class="w-12 h-12 glassmorphism rounded-full flex items-center justify-center pulse-glow">
+                    <i class="fas fa-infinity text-purple-400 text-xl"></i>
+                </div>
+            </div>
+            
+            <div class="absolute bottom-12 left-16 floating-element" style="animation-delay: 4s;">
+                <div class="w-20 h-20 glassmorphism rounded-2xl flex items-center justify-center pulse-glow">
+                    <i class="fas fa-rocket text-green-400 text-2xl"></i>
+                </div>
+            </div>
+
+            <!-- Central Avatar -->
+            <div class="text-center">
+                <div class="w-24 h-24 bg-gradient-to-r from-blue-500 to-purple-600 rounded-3xl flex items-center justify-center mx-auto mb-4 cyber-glow pulse-glow">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=96&h=96&fit=crop&crop=face" 
+                         alt="用户头像" 
+                         class="w-20 h-20 rounded-2xl object-cover">
+                    <!-- 图片来源: https://unsplash.com/photos/man-wearing-black-zip-up-jacket-near-beach-smiling-at-the-camera-d1d0cf377fde -->
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">创意工坊主</h3>
+                <p class="text-gray-400 text-sm">✨ 灵感创造者 Lv.5</p>
+                <div class="flex items-center justify-center space-x-4 mt-4">
+                    <div class="text-center">
+                        <p class="text-2xl font-bold text-blue-400">12</p>
+                        <p class="text-xs text-gray-400">应用作品</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-2xl font-bold text-green-400">8.6K</p>
+                        <p class="text-xs text-gray-400">总访问量</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-2xl font-bold text-yellow-400">¥2.3K</p>
+                        <p class="text-xs text-gray-400">本月收益</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Visitors Section -->
+        <div class="p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold text-white">👥 最近访客</h3>
+                <span class="text-sm text-gray-400">今日 +23</span>
+            </div>
+            
+            <div class="flex space-x-3 mb-6 overflow-x-auto">
+                <div class="flex-shrink-0 text-center">
+                    <div class="visitor-avatar mb-2">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b9a5b3d4?w=40&h=40&fit=crop&crop=face" 
+                             alt="访客" class="w-full h-full rounded-full object-cover">
+                        <!-- 图片来源: https://unsplash.com/photos/woman-wearing-black-scoop-neck-long-sleeved-shirt-2616b9a5b3d4 -->
+                    </div>
+                    <p class="text-xs text-gray-400">小艾</p>
+                </div>
+                <div class="flex-shrink-0 text-center">
+                    <div class="visitor-avatar mb-2">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" 
+                             alt="访客" class="w-full h-full rounded-full object-cover">
+                        <!-- 图片来源: https://unsplash.com/photos/a-man-wearing-a-white-shirt-and-a-black-tie-0a1dd7228f2d -->
+                    </div>
+                    <p class="text-xs text-gray-400">阿杰</p>
+                </div>
+                <div class="flex-shrink-0 text-center">
+                    <div class="visitor-avatar mb-2">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face" 
+                             alt="访客" class="w-full h-full rounded-full object-cover">
+                        <!-- 图片来源: https://unsplash.com/photos/woman-smiling-wearing-denim-jacket-has-white-top-6461ffad8d80 -->
+                    </div>
+                    <p class="text-xs text-gray-400">琳娜</p>
+                </div>
+                <div class="flex-shrink-0 text-center">
+                    <div class="visitor-avatar mb-2 flex items-center justify-center text-white font-bold">
+                        +19
+                    </div>
+                    <p class="text-xs text-gray-400">更多</p>
+                </div>
+            </div>
+
+            <!-- Interactive Messages -->
+            <div class="glassmorphism rounded-3xl p-6 mb-6">
+                <h4 class="font-semibold mb-4 flex items-center">
+                    <i class="fas fa-comments text-blue-400 mr-2"></i>
+                    访客留言墙
+                </h4>
+                
+                <div class="space-y-4">
+                    <div class="flex items-start space-x-3">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b9a5b3d4?w=32&h=32&fit=crop&crop=face" 
+                             alt="访客" class="w-8 h-8 rounded-full">
+                        <div class="flex-1">
+                            <div class="bg-gray-800/50 rounded-2xl p-3">
+                                <p class="text-sm text-white">你的智能喂养助手太棒了！我家宝宝用了之后营养搭配更科学了 👶</p>
+                            </div>
+                            <div class="flex items-center space-x-3 mt-2">
+                                <span class="text-xs text-gray-400">小艾 • 2分钟前</span>
+                                <button class="text-xs text-blue-400 hover:text-blue-300">
+                                    <i class="fas fa-heart mr-1"></i>点赞(12)
+                                </button>
+                                <button class="text-xs text-blue-400 hover:text-blue-300">回复</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-3">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=32&h=32&fit=crop&crop=face" 
+                             alt="访客" class="w-8 h-8 rounded-full">
+                        <div class="flex-1">
+                            <div class="bg-gray-800/50 rounded-2xl p-3">
+                                <p class="text-sm text-white">能分享一下开发经验吗？我也想做一个类似的应用</p>
+                            </div>
+                            <div class="flex items-center space-x-3 mt-2">
+                                <span class="text-xs text-gray-400">阿杰 • 5分钟前</span>
+                                <button class="text-xs text-blue-400 hover:text-blue-300">
+                                    <i class="fas fa-heart mr-1"></i>点赞(3)
+                                </button>
+                                <button class="text-xs text-blue-400 hover:text-blue-300">回复</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 pt-4 border-t border-gray-700">
+                    <div class="flex items-center space-x-3">
+                        <input type="text" 
+                               placeholder="留言支持..." 
+                               class="flex-1 bg-gray-800/50 rounded-2xl px-4 py-3 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center ios-button">
+                            <i class="fas fa-paper-plane text-white"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats and Earnings -->
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <div class="stats-card rounded-2xl p-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <i class="fas fa-eye text-blue-400 text-xl"></i>
+                        <span class="text-xs text-gray-400">今日</span>
+                    </div>
+                    <p class="text-2xl font-bold text-white">245</p>
+                    <p class="text-sm text-gray-400">访问量</p>
+                    <div class="flex items-center mt-2">
+                        <i class="fas fa-arrow-up text-green-400 text-xs mr-1"></i>
+                        <span class="text-xs text-green-400">+18%</span>
+                    </div>
+                </div>
+
+                <div class="stats-card rounded-2xl p-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <i class="fas fa-coins text-yellow-400 text-xl"></i>
+                        <span class="text-xs text-gray-400">本周</span>
+                    </div>
+                    <p class="text-2xl font-bold text-white">856</p>
+                    <p class="text-sm text-gray-400">$AHA代币</p>
+                    <div class="flex items-center mt-2">
+                        <i class="fas fa-arrow-up text-green-400 text-xs mr-1"></i>
+                        <span class="text-xs text-green-400">+25%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Decoration Shop -->
+            <div class="glassmorphism rounded-3xl p-6 mb-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h4 class="font-semibold flex items-center">
+                        <i class="fas fa-store text-purple-400 mr-2"></i>
+                        装扮商城
+                    </h4>
+                    <a href="#" class="text-sm text-blue-400">查看全部</a>
+                </div>
+
+                <div class="grid grid-cols-3 gap-3">
+                    <div class="decoration-item rounded-2xl p-3 text-center ios-button">
+                        <div class="w-12 h-12 bg-gradient-to-r from-pink-500 to-rose-500 rounded-2xl mx-auto mb-2 flex items-center justify-center">
+                            <i class="fas fa-heart text-white"></i>
+                        </div>
+                        <p class="text-xs text-white mb-1">爱心粒子</p>
+                        <p class="text-xs text-yellow-400">50 $AHA</p>
+                    </div>
+
+                    <div class="decoration-item rounded-2xl p-3 text-center ios-button">
+                        <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl mx-auto mb-2 flex items-center justify-center">
+                            <i class="fas fa-snowflake text-white"></i>
+                        </div>
+                        <p class="text-xs text-white mb-1">冰晶特效</p>
+                        <p class="text-xs text-yellow-400">80 $AHA</p>
+                    </div>
+
+                    <div class="decoration-item rounded-2xl p-3 text-center ios-button">
+                        <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-2xl mx-auto mb-2 flex items-center justify-center">
+                            <i class="fas fa-magic text-white"></i>
+                        </div>
+                        <p class="text-xs text-white mb-1">魔法光环</p>
+                        <p class="text-xs text-yellow-400">120 $AHA</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="space-y-4">
+                <button class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-4 px-6 rounded-2xl font-semibold ios-button cyber-glow">
+                    <i class="fas fa-palette mr-2"></i>自定义装扮
+                </button>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <button class="glassmorphism text-white py-3 px-4 rounded-2xl font-semibold ios-button">
+                        <i class="fas fa-chart-bar mr-2"></i>数据分析
+                    </button>
+                    <button class="glassmorphism text-white py-3 px-4 rounded-2xl font-semibold ios-button">
+                        <i class="fas fa-gift mr-2"></i>邀请好友
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Tip Notification -->
+    <div class="fixed bottom-20 right-6 glassmorphism rounded-2xl p-4 max-w-xs">
+        <div class="flex items-start space-x-3">
+            <i class="fas fa-coins text-yellow-400 text-lg mt-1"></i>
+            <div>
+                <p class="text-sm font-medium text-white">收到打赏！</p>
+                <p class="text-xs text-gray-400">访客小艾为你的作品打赏了 50 $AHA</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

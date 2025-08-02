@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>经济中心 - Aha</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .cyber-glow {
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+        }
+        
+        .neon-text {
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
+        }
+        
+        .ios-button {
+            border-radius: 12px;
+            transition: all 0.2s ease;
+        }
+        
+        .ios-button:active {
+            transform: scale(0.95);
+        }
+        
+        .wallet-card {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(168, 85, 247, 0.2));
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+        
+        .earnings-card {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(59, 130, 246, 0.15));
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+        
+        .transaction-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        @keyframes coin-float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-5px) rotate(10deg); }
+        }
+        
+        .floating-coin {
+            animation: coin-float 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-money {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .pulse-money {
+            animation: pulse-money 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+    <div class="min-h-screen">
+        <!-- Header -->
+        <div class="flex items-center justify-between p-6 pt-12 glassmorphism border-b border-gray-800">
+            <div class="flex items-center space-x-4">
+                <button class="w-10 h-10 glassmorphism rounded-2xl flex items-center justify-center ios-button">
+                    <i class="fas fa-arrow-left text-gray-300"></i>
+                </button>
+                <div>
+                    <h1 class="text-xl font-semibold neon-text">经济中心</h1>
+                    <p class="text-gray-400 text-sm">管理您的数字资产</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2">
+                <button class="px-4 py-2 glassmorphism rounded-xl text-sm ios-button">
+                    <i class="fas fa-history mr-1"></i>记录
+                </button>
+                <button class="px-4 py-2 bg-gradient-to-r from-green-500 to-blue-600 rounded-xl text-sm ios-button cyber-glow">
+                    <i class="fas fa-download mr-1"></i>提现
+                </button>
+            </div>
+        </div>
+
+        <div class="p-6">
+            <!-- Wallet Balance -->
+            <div class="wallet-card rounded-3xl p-6 mb-6 relative overflow-hidden">
+                <div class="absolute top-4 right-4 floating-coin">
+                    <i class="fas fa-coins text-yellow-400 text-2xl pulse-money"></i>
+                </div>
+                
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <p class="text-gray-300 text-sm mb-1">钱包余额</p>
+                        <div class="flex items-center space-x-3">
+                            <h2 class="text-4xl font-bold text-white">3,246</h2>
+                            <span class="text-yellow-400 font-semibold">$AHA</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">≈ ¥324.6 CNY</p>
+                    </div>
+                    <div class="text-right">
+                        <div class="w-16 h-16 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-2xl flex items-center justify-center cyber-glow">
+                            <i class="fas fa-wallet text-black text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="text-center">
+                        <p class="text-2xl font-bold text-green-400">+856</p>
+                        <p class="text-xs text-gray-400">本周收入</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-2xl font-bold text-red-400">-120</p>
+                        <p class="text-xs text-gray-400">本周支出</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-2xl font-bold text-blue-400">+736</p>
+                        <p class="text-xs text-gray-400">净收益</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="grid grid-cols-4 gap-3 mb-6">
+                <button class="glassmorphism p-4 rounded-2xl text-center ios-button">
+                    <i class="fas fa-exchange-alt text-blue-400 text-xl mb-2"></i>
+                    <p class="text-xs">兑换</p>
+                </button>
+                <button class="glassmorphism p-4 rounded-2xl text-center ios-button">
+                    <i class="fas fa-paper-plane text-green-400 text-xl mb-2"></i>
+                    <p class="text-xs">转账</p>
+                </button>
+                <button class="glassmorphism p-4 rounded-2xl text-center ios-button">
+                    <i class="fas fa-shopping-cart text-purple-400 text-xl mb-2"></i>
+                    <p class="text-xs">购买</p>
+                </button>
+                <button class="glassmorphism p-4 rounded-2xl text-center ios-button">
+                    <i class="fas fa-chart-line text-yellow-400 text-xl mb-2"></i>
+                    <p class="text-xs">投资</p>
+                </button>
+            </div>
+
+            <!-- Earnings Analytics -->
+            <div class="earnings-card rounded-3xl p-6 mb-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-white flex items-center">
+                        <i class="fas fa-chart-bar text-green-400 mr-2"></i>
+                        收益分析
+                    </h3>
+                    <select class="bg-gray-800 text-white rounded-xl px-3 py-1 text-sm focus:outline-none">
+                        <option>本月</option>
+                        <option>本周</option>
+                        <option>今天</option>
+                    </select>
+                </div>
+
+                <!-- Chart Placeholder -->
+                <div class="h-32 glassmorphism rounded-2xl mb-4 flex items-end justify-between p-4">
+                    <div class="flex items-end space-x-2">
+                        <div class="w-6 bg-blue-400 rounded-t" style="height: 40%"></div>
+                        <div class="w-6 bg-green-400 rounded-t" style="height: 60%"></div>
+                        <div class="w-6 bg-purple-400 rounded-t" style="height: 30%"></div>
+                        <div class="w-6 bg-yellow-400 rounded-t" style="height: 80%"></div>
+                        <div class="w-6 bg-red-400 rounded-t" style="height: 50%"></div>
+                        <div class="w-6 bg-cyan-400 rounded-t" style="height: 90%"></div>
+                        <div class="w-6 bg-pink-400 rounded-t" style="height: 70%"></div>
+                    </div>
+                    <div class="text-right text-sm text-gray-400">
+                        <p>峰值: 156 $AHA</p>
+                        <p>12月25日</p>
+                    </div>
+                </div>
+
+                <!-- Revenue Sources -->
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between p-3 bg-gray-800/30 rounded-2xl">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                                <i class="fas fa-mobile-alt text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-white">应用使用费</p>
+                                <p class="text-xs text-gray-400">智能喂养助手</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-sm font-semibold text-green-400">+1,256 $AHA</p>
+                            <p class="text-xs text-gray-400">68.4%</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between p-3 bg-gray-800/30 rounded-2xl">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
+                                <i class="fas fa-palette text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-white">装扮销售</p>
+                                <p class="text-xs text-gray-400">NFT空间皮肤</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-sm font-semibold text-green-400">+485 $AHA</p>
+                            <p class="text-xs text-gray-400">26.4%</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between p-3 bg-gray-800/30 rounded-2xl">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
+                                <i class="fas fa-gift text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-white">打赏收入</p>
+                                <p class="text-xs text-gray-400">访客打赏</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-sm font-semibold text-green-400">+95 $AHA</p>
+                            <p class="text-xs text-gray-400">5.2%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Transactions -->
+            <div class="glassmorphism rounded-3xl p-6 mb-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-white flex items-center">
+                        <i class="fas fa-history text-blue-400 mr-2"></i>
+                        最近交易
+                    </h3>
+                    <a href="#" class="text-sm text-blue-400">查看全部</a>
+                </div>
+
+                <div class="space-y-3">
+                    <div class="transaction-item rounded-2xl p-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-green-500/20 rounded-2xl flex items-center justify-center">
+                                    <i class="fas fa-plus text-green-400"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-white">应用使用收入</p>
+                                    <p class="text-xs text-gray-400">2024-12-28 14:32</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm font-semibold text-green-400">+50 $AHA</p>
+                                <p class="text-xs text-gray-400">用户: 小艾</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="transaction-item rounded-2xl p-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-red-500/20 rounded-2xl flex items-center justify-center">
+                                    <i class="fas fa-minus text-red-400"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-white">购买装扮</p>
+                                    <p class="text-xs text-gray-400">2024-12-28 12:15</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm font-semibold text-red-400">-80 $AHA</p>
+                                <p class="text-xs text-gray-400">冰晶特效</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="transaction-item rounded-2xl p-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-blue-500/20 rounded-2xl flex items-center justify-center">
+                                    <i class="fas fa-exchange-alt text-blue-400"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-white">代币兑换</p>
+                                    <p class="text-xs text-gray-400">2024-12-28 09:23</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm font-semibold text-blue-400">+200 $AHA</p>
+                                <p class="text-xs text-gray-400">CNY → $AHA</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="transaction-item rounded-2xl p-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-purple-500/20 rounded-2xl flex items-center justify-center">
+                                    <i class="fas fa-crown text-purple-400"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-white">平台奖励</p>
+                                    <p class="text-xs text-gray-400">2024-12-27 20:45</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm font-semibold text-purple-400">+100 $AHA</p>
+                                <p class="text-xs text-gray-400">创作者等级提升</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Withdrawal Options -->
+            <div class="glassmorphism rounded-3xl p-6 mb-6">
+                <h3 class="text-lg font-semibold text-white mb-4 flex items-center">
+                    <i class="fas fa-download text-green-400 mr-2"></i>
+                    提现方式
+                </h3>
+
+                <div class="space-y-3">
+                    <button class="w-full transaction-item rounded-2xl p-4 ios-button hover:bg-gray-700/30">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-green-500 rounded-2xl flex items-center justify-center">
+                                    <i class="fab fa-weixin text-white"></i>
+                                </div>
+                                <div class="text-left">
+                                    <p class="text-sm font-medium text-white">微信钱包</p>
+                                    <p class="text-xs text-gray-400">费率: 3% • 即时到账</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right text-gray-400"></i>
+                        </div>
+                    </button>
+
+                    <button class="w-full transaction-item rounded-2xl p-4 ios-button hover:bg-gray-700/30">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-blue-500 rounded-2xl flex items-center justify-center">
+                                    <i class="fab fa-alipay text-white"></i>
+                                </div>
+                                <div class="text-left">
+                                    <p class="text-sm font-medium text-white">支付宝</p>
+                                    <p class="text-xs text-gray-400">费率: 3% • 即时到账</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right text-gray-400"></i>
+                        </div>
+                    </button>
+
+                    <button class="w-full transaction-item rounded-2xl p-4 ios-button hover:bg-gray-700/30">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-purple-500 rounded-2xl flex items-center justify-center">
+                                    <i class="fas fa-university text-white"></i>
+                                </div>
+                                <div class="text-left">
+                                    <p class="text-sm font-medium text-white">银行卡</p>
+                                    <p class="text-xs text-gray-400">费率: 2% • 1-3个工作日</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right text-gray-400"></i>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="space-y-4">
+                <button class="w-full bg-gradient-to-r from-green-500 to-blue-600 text-white py-4 px-6 rounded-2xl font-semibold ios-button cyber-glow">
+                    <i class="fas fa-download mr-2"></i>申请提现
+                </button>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <button class="glassmorphism text-white py-3 px-4 rounded-2xl font-semibold ios-button">
+                        <i class="fas fa-plus mr-2"></i>充值代币
+                    </button>
+                    <button class="glassmorphism text-white py-3 px-4 rounded-2xl font-semibold ios-button">
+                        <i class="fas fa-file-alt mr-2"></i>交易记录
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Earning Notification -->
+    <div class="fixed bottom-20 left-6 glassmorphism rounded-2xl p-4 max-w-xs">
+        <div class="flex items-start space-x-3">
+            <i class="fas fa-coins text-yellow-400 text-lg mt-1 floating-coin"></i>
+            <div>
+                <p class="text-sm font-medium text-white">收益到账！</p>
+                <p class="text-xs text-gray-400">智能喂养助手被使用3次，获得 150 $AHA</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
