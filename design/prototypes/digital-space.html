@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数字空间 - Aha</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .glassmorphism {
+            background: rgba(139, 92, 246, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .space-bg {
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(16, 185, 129, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.2) 0%, transparent 50%),
+                linear-gradient(135deg, #0f0f23 0%, #1e1b4b 50%, #312e81 100%);
+        }
+
+        .floating-element {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(2) { animation-delay: -2s; }
+        .floating-element:nth-child(3) { animation-delay: -4s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-15px) rotate(5deg); }
+            66% { transform: translateY(-8px) rotate(-3deg); }
+        }
+
+        .particle-effect {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: linear-gradient(45deg, #8b5cf6, #06b6d4);
+            border-radius: 50%;
+            animation: particle-float 8s linear infinite;
+        }
+
+        @keyframes particle-float {
+            0% { transform: translateY(100vh) translateX(0px); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) translateX(50px); opacity: 0; }
+        }
+
+        .nft-glow {
+            animation: nft-shine 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes nft-shine {
+            from { box-shadow: 0 0 20px rgba(139, 92, 246, 0.5); }
+            to { box-shadow: 0 0 40px rgba(139, 92, 246, 0.8), 0 0 60px rgba(6, 182, 212, 0.4); }
+        }
+
+        .heat-map {
+            background: radial-gradient(circle, rgba(239, 68, 68, 0.3) 0%, transparent 70%);
+        }
+
+        .visitor-pulse {
+            animation: visitor-glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes visitor-glow {
+            from { transform: scale(1); opacity: 0.7; }
+            to { transform: scale(1.1); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="space-bg min-h-screen text-white relative overflow-hidden">
+    <!-- 粒子效果 -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="particle-effect" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="particle-effect" style="left: 30%; animation-delay: 2s;"></div>
+        <div class="particle-effect" style="left: 60%; animation-delay: 4s;"></div>
+        <div class="particle-effect" style="left: 80%; animation-delay: 6s;"></div>
+    </div>
+
+    <!-- 状态栏 -->
+    <div class="flex justify-between items-center px-6 py-2 text-sm relative z-10">
+        <span class="text-purple-300 font-semibold">9:41</span>
+        <div class="flex items-center space-x-2">
+            <div class="flex space-x-1">
+                <div class="w-1 h-3 bg-purple-400 rounded-full"></div>
+                <div class="w-1 h-4 bg-purple-400 rounded-full"></div>
+                <div class="w-1 h-5 bg-purple-400 rounded-full"></div>
+                <div class="w-1 h-6 bg-purple-400 rounded-full"></div>
+            </div>
+            <i class="fas fa-wifi text-purple-400 text-sm"></i>
+            <div class="w-6 h-3 border border-purple-400 rounded-sm relative">
+                <div class="absolute inset-0.5 bg-gradient-to-r from-green-400 to-purple-500 rounded-sm"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 顶部导航 -->
+    <div class="flex items-center justify-between px-6 py-4 relative z-10">
+        <button class="glassmorphism rounded-full p-2">
+            <i class="fas fa-arrow-left text-purple-300"></i>
+        </button>
+        <h1 class="text-lg font-semibold text-white">我的数字空间</h1>
+        <div class="flex items-center space-x-2">
+            <button class="glassmorphism rounded-full p-2">
+                <i class="fas fa-share text-purple-300"></i>
+            </button>
+            <button class="glassmorphism rounded-full p-2">
+                <i class="fas fa-cog text-purple-300"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- 空间预览区域 -->
+    <div class="px-6 mb-6 relative z-10">
+        <div class="glassmorphism rounded-3xl p-6 relative overflow-hidden">
+            <!-- 3D空间模拟 -->
+            <div class="h-48 relative rounded-2xl overflow-hidden mb-4" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <!-- 浮动装饰元素 -->
+                <div class="floating-element absolute top-4 left-6 w-8 h-8 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-80"></div>
+                <div class="floating-element absolute top-12 right-8 w-6 h-6 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-lg opacity-70"></div>
+                <div class="floating-element absolute bottom-8 left-1/3 w-10 h-6 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full opacity-60"></div>
+                
+                <!-- 中央焦点 -->
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-20 h-20 bg-gradient-to-r from-purple-500 via-blue-500 to-green-400 rounded-3xl flex items-center justify-center nft-glow">
+                        <i class="fas fa-lightbulb text-white text-2xl"></i>
+                    </div>
+                </div>
+
+                <!-- 热力图区域 -->
+                <div class="heat-map absolute top-8 right-12 w-12 h-12 rounded-full"></div>
+                <div class="heat-map absolute bottom-6 left-8 w-8 h-8 rounded-full"></div>
+            </div>
+
+            <!-- 空间统计 -->
+            <div class="grid grid-cols-3 gap-4 mb-4">
+                <div class="text-center">
+                    <p class="text-2xl font-bold text-green-400">1,247</p>
+                    <p class="text-gray-400 text-xs">今日访问</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-2xl font-bold text-purple-400">89</p>
+                    <p class="text-gray-400 text-xs">点赞收藏</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-2xl font-bold text-blue-400">¥156</p>
+                    <p class="text-gray-400 text-xs">空间收益</p>
+                </div>
+            </div>
+
+            <!-- 当前主题 -->
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-xl"></div>
+                    <div>
+                        <h4 class="text-white font-medium">赛博茶馆</h4>
+                        <p class="text-gray-400 text-sm">NFT主题 • 限量版</p>
+                    </div>
+                </div>
+                <button class="text-purple-300 text-sm">切换主题</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 装扮商城 -->
+    <div class="px-6 mb-6 relative z-10">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold text-white">装扮商城</h3>
+            <button class="text-purple-300 text-sm">查看全部</button>
+        </div>
+        
+        <!-- 主题皮肤 -->
+        <div class="mb-6">
+            <h4 class="text-white font-medium mb-3">热门主题</h4>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="glassmorphism rounded-2xl p-4 nft-glow">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=200&h=120&fit=crop" 
+                         alt="星空自习室" class="w-full h-20 object-cover rounded-xl mb-3">
+                    <!-- 图片来源: https://unsplash.com/photos/a-very-long-hallway-with-lights-on-the-ceiling-518709268805-4e9042af2176 -->
+                    <h5 class="text-white font-medium mb-1">星空自习室</h5>
+                    <div class="flex items-center justify-between">
+                        <span class="text-purple-400 text-sm">0.08 ETH</span>
+                        <span class="text-green-400 text-xs">HOT</span>
+                    </div>
+                </div>
+                
+                <div class="glassmorphism rounded-2xl p-4">
+                    <img src="https://images.unsplash.com/photo-1509773896068-7fd415d91e2e?w=200&h=120&fit=crop" 
+                         alt="森林工作室" class="w-full h-20 object-cover rounded-xl mb-3">
+                    <!-- 图片来源: https://unsplash.com/photos/green-trees-under-cloudy-sky-during-daytime-509773896068-7fd415d91e2e -->
+                    <h5 class="text-white font-medium mb-1">森林工作室</h5>
+                    <div class="flex items-center justify-between">
+                        <span class="text-purple-400 text-sm">0.05 ETH</span>
+                        <span class="text-blue-400 text-xs">NEW</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 动态特效 -->
+        <div class="mb-6">
+            <h4 class="text-white font-medium mb-3">动态特效</h4>
+            <div class="grid grid-cols-3 gap-3">
+                <div class="glassmorphism rounded-2xl p-3 text-center">
+                    <div class="w-12 h-12 mx-auto mb-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                        <i class="fas fa-sparkles text-white"></i>
+                    </div>
+                    <p class="text-white text-xs">粒子流</p>
+                    <p class="text-purple-400 text-xs">500 $AHA</p>
+                </div>
+                
+                <div class="glassmorphism rounded-2xl p-3 text-center">
+                    <div class="w-12 h-12 mx-auto mb-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center">
+                        <i class="fas fa-bolt text-white"></i>
+                    </div>
+                    <p class="text-white text-xs">霓虹灯</p>
+                    <p class="text-purple-400 text-xs">300 $AHA</p>
+                </div>
+                
+                <div class="glassmorphism rounded-2xl p-3 text-center">
+                    <div class="w-12 h-12 mx-auto mb-2 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center">
+                        <i class="fas fa-fire text-white"></i>
+                    </div>
+                    <p class="text-white text-xs">能量波</p>
+                    <p class="text-purple-400 text-xs">800 $AHA</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 访客互动 -->
+    <div class="px-6 mb-6 relative z-10">
+        <div class="glassmorphism rounded-3xl p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h4 class="font-semibold text-white">访客互动</h4>
+                <div class="flex items-center space-x-2">
+                    <div class="w-2 h-2 bg-green-400 rounded-full visitor-pulse"></div>
+                    <span class="text-green-400 text-sm">12人在线</span>
+                </div>
+            </div>
+
+            <!-- 最近访客 -->
+            <div class="mb-4">
+                <p class="text-gray-400 text-sm mb-3">最近访客</p>
+                <div class="flex -space-x-2">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=32&h=32&fit=crop&crop=face" 
+                         alt="访客1" class="w-8 h-8 rounded-full border-2 border-purple-400">
+                    <img src="https://images.unsplash.com/photo-1494790108755-2616b612b1e3?w=32&h=32&fit=crop&crop=face" 
+                         alt="访客2" class="w-8 h-8 rounded-full border-2 border-blue-400">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=face" 
+                         alt="访客3" class="w-8 h-8 rounded-full border-2 border-green-400">
+                    <div class="w-8 h-8 rounded-full border-2 border-gray-400 bg-gray-700 flex items-center justify-center text-xs text-gray-300">
+                        +5
+                    </div>
+                </div>
+            </div>
+
+            <!-- 互动统计 -->
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div class="glassmorphism rounded-2xl p-3">
+                    <div class="flex items-center space-x-2 mb-2">
+                        <i class="fas fa-heart text-red-400"></i>
+                        <span class="text-white text-sm">点赞</span>
+                    </div>
+                    <p class="text-2xl font-bold text-red-400">234</p>
+                    <p class="text-gray-400 text-xs">+15 今日</p>
+                </div>
+                
+                <div class="glassmorphism rounded-2xl p-3">
+                    <div class="flex items-center space-x-2 mb-2">
+                        <i class="fas fa-coins text-yellow-400"></i>
+                        <span class="text-white text-sm">打赏</span>
+                    </div>
+                    <p class="text-2xl font-bold text-yellow-400">¥89</p>
+                    <p class="text-gray-400 text-xs">+¥23 今日</p>
+                </div>
+            </div>
+
+            <!-- 留言墙 -->
+            <div class="glassmorphism rounded-2xl p-4">
+                <h5 class="text-white font-medium mb-3">访客留言</h5>
+                <div class="space-y-3">
+                    <div class="flex items-start space-x-3">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b1e3?w=24&h=24&fit=crop&crop=face" 
+                             alt="用户" class="w-6 h-6 rounded-full">
+                        <div class="flex-1">
+                            <p class="text-gray-300 text-sm">"这个空间设计太棒了！"</p>
+                            <p class="text-gray-500 text-xs">Sarah • 2分钟前</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=24&h=24&fit=crop&crop=face" 
+                             alt="用户" class="w-6 h-6 rounded-full">
+                        <div class="flex-1">
+                            <p class="text-gray-300 text-sm">"灵感满满，学到了很多！"</p>
+                            <p class="text-gray-500 text-xs">Mike • 5分钟前</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 操作按钮 -->
+    <div class="px-6 pb-24 relative z-10">
+        <div class="space-y-4">
+            <button class="w-full bg-gradient-to-r from-purple-500 to-blue-500 rounded-2xl py-4 px-6 text-white font-semibold text-lg">
+                <i class="fas fa-palette mr-2"></i>
+                装扮空间
+            </button>
+            <div class="grid grid-cols-2 gap-4">
+                <button class="glassmorphism rounded-2xl py-3 px-4 text-purple-300 font-medium">
+                    <i class="fas fa-upload mr-2"></i>
+                    上传3D模型
+                </button>
+                <button class="glassmorphism rounded-2xl py-3 px-4 text-green-300 font-medium">
+                    <i class="fas fa-store mr-2"></i>
+                    NFT商城
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 浮动操作按钮 -->
+    <div class="fixed bottom-6 right-6 space-y-3 z-20">
+        <button class="w-14 h-14 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center floating-element shadow-lg">
+            <i class="fas fa-paint-brush text-white text-xl"></i>
+        </button>
+        <button class="w-14 h-14 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center floating-element shadow-lg">
+            <i class="fas fa-cube text-white text-xl"></i>
+        </button>
+    </div>
+</body>
+</html>

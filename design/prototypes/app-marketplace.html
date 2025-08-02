@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>应用广场 - Aha</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .glassmorphism {
+            background: rgba(139, 92, 246, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .app-card {
+            transition: all 0.3s ease;
+        }
+
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.3);
+        }
+
+        .featured-glow {
+            animation: featured-pulse 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes featured-pulse {
+            from { box-shadow: 0 0 20px rgba(139, 92, 246, 0.5); }
+            to { box-shadow: 0 0 40px rgba(139, 92, 246, 0.8), 0 0 60px rgba(16, 185, 129, 0.3); }
+        }
+
+        .trending-badge {
+            animation: trend-bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes trend-bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .download-counter {
+            animation: count-up 2s ease-out;
+        }
+
+        @keyframes count-up {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .category-slider {
+            animation: slide-in 1s ease-out;
+        }
+
+        @keyframes slide-in {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .star-rating {
+            color: #fbbf24;
+            text-shadow: 0 0 5px rgba(251, 191, 36, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 min-h-screen text-white">
+    <!-- 状态栏 -->
+    <div class="flex justify-between items-center px-6 py-2 text-sm">
+        <span class="text-purple-300 font-semibold">9:41</span>
+        <div class="flex items-center space-x-2">
+            <div class="flex space-x-1">
+                <div class="w-1 h-3 bg-purple-400 rounded-full"></div>
+                <div class="w-1 h-4 bg-purple-400 rounded-full"></div>
+                <div class="w-1 h-5 bg-purple-400 rounded-full"></div>
+                <div class="w-1 h-6 bg-purple-400 rounded-full"></div>
+            </div>
+            <i class="fas fa-wifi text-purple-400 text-sm"></i>
+            <div class="w-6 h-3 border border-purple-400 rounded-sm relative">
+                <div class="absolute inset-0.5 bg-gradient-to-r from-green-400 to-purple-500 rounded-sm"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 顶部导航 -->
+    <div class="flex items-center justify-between px-6 py-4">
+        <button class="glassmorphism rounded-full p-2">
+            <i class="fas fa-arrow-left text-purple-300"></i>
+        </button>
+        <h1 class="text-lg font-semibold text-white">应用广场</h1>
+        <div class="flex items-center space-x-2">
+            <button class="glassmorphism rounded-full p-2">
+                <i class="fas fa-search text-purple-300"></i>
+            </button>
+            <button class="glassmorphism rounded-full p-2">
+                <i class="fas fa-filter text-purple-300"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- 搜索栏 -->
+    <div class="px-6 mb-6">
+        <div class="glassmorphism rounded-2xl p-4 flex items-center space-x-3">
+            <i class="fas fa-search text-gray-400"></i>
+            <input type="text" placeholder="搜索应用、模板或套装..." 
+                   class="flex-1 bg-transparent text-white placeholder-gray-400 focus:outline-none">
+            <button class="text-purple-400">
+                <i class="fas fa-microphone"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- 分类标签 -->
+    <div class="px-6 mb-6">
+        <div class="flex space-x-3 overflow-x-auto pb-2 category-slider">
+            <button class="px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full text-white font-medium whitespace-nowrap">
+                推荐
+            </button>
+            <button class="px-4 py-2 glassmorphism rounded-full text-purple-300 font-medium whitespace-nowrap">
+                生活助手
+            </button>
+            <button class="px-4 py-2 glassmorphism rounded-full text-blue-300 font-medium whitespace-nowrap">
+                工作效率
+            </button>
+            <button class="px-4 py-2 glassmorphism rounded-full text-green-300 font-medium whitespace-nowrap">
+                教育学习
+            </button>
+            <button class="px-4 py-2 glassmorphism rounded-full text-yellow-300 font-medium whitespace-nowrap">
+                娱乐休闲
+            </button>
+        </div>
+    </div>
+
+    <!-- 精选应用 -->
+    <div class="px-6 mb-6">
+        <div class="glassmorphism rounded-3xl p-6 featured-glow">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold text-white">今日精选</h3>
+                <span class="px-3 py-1 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full text-black text-xs font-bold trending-badge">
+                    <i class="fas fa-fire mr-1"></i>HOT
+                </span>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=80&h=80&fit=crop" 
+                     alt="智能记账助手" class="w-20 h-20 rounded-2xl">
+                <!-- 图片来源: https://unsplash.com/photos/laptop-computer-showing-c-application-551650975-87deedd944c3 -->
+                <div class="flex-1">
+                    <h4 class="text-white font-semibold mb-1">智能记账助手</h4>
+                    <p class="text-gray-400 text-sm mb-2">AI自动分类，让记账变得简单</p>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center space-x-1">
+                            <div class="star-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-400 text-sm">4.9</span>
+                        </div>
+                        <span class="text-green-400 text-sm download-counter">50k+ 下载</span>
+                    </div>
+                </div>
+                <button class="bg-gradient-to-r from-purple-500 to-blue-500 rounded-xl py-2 px-4 text-white font-medium">
+                    使用
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 热门应用 -->
+    <div class="px-6 mb-6">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold text-white">热门应用</h3>
+            <button class="text-purple-300 text-sm">查看全部</button>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-4">
+            <div class="glassmorphism rounded-2xl p-4 app-card">
+                <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=120&h=80&fit=crop" 
+                     alt="学习计划器" class="w-full h-20 object-cover rounded-xl mb-3">
+                <!-- 图片来源: https://unsplash.com/photos/macbook-pro-showing-programming-language-434030216411-0b793f4b4173 -->
+                <h5 class="text-white font-medium mb-1">学习计划器</h5>
+                <p class="text-gray-400 text-xs mb-2">个性化学习路径</p>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-1">
+                        <span class="star-rating text-sm">★★★★☆</span>
+                        <span class="text-gray-400 text-xs">4.7</span>
+                    </div>
+                    <span class="text-green-400 text-xs">免费</span>
+                </div>
+            </div>
+            
+            <div class="glassmorphism rounded-2xl p-4 app-card">
+                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=120&h=80&fit=crop" 
+                     alt="时间管理" class="w-full h-20 object-cover rounded-xl mb-3">
+                <!-- 图片来源: https://unsplash.com/photos/macbook-pro-on-table-beside-white-ipad-and-black-smartphone-near-green-leafed-plant-498050108023-c5249f4df085 -->
+                <h5 class="text-white font-medium mb-1">时间管理</h5>
+                <p class="text-gray-400 text-xs mb-2">番茄工作法</p>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-1">
+                        <span class="star-rating text-sm">★★★★★</span>
+                        <span class="text-gray-400 text-xs">4.8</span>
+                    </div>
+                    <span class="text-purple-400 text-xs">¥0.5/次</span>
+                </div>
+            </div>
+            
+            <div class="glassmorphism rounded-2xl p-4 app-card">
+                <img src="https://images.unsplash.com/photo-1559526324-593bc73d752a?w=120&h=80&fit=crop" 
+                     alt="健康饮食" class="w-full h-20 object-cover rounded-xl mb-3">
+                <!-- 图片来源: https://unsplash.com/photos/person-holding-white-samsung-android-smartphone-559526324-593bc73d752a -->
+                <h5 class="text-white font-medium mb-1">健康饮食</h5>
+                <p class="text-gray-400 text-xs mb-2">营养搭配建议</p>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-1">
+                        <span class="star-rating text-sm">★★★★☆</span>
+                        <span class="text-gray-400 text-xs">4.6</span>
+                    </div>
+                    <span class="text-blue-400 text-xs">¥15/月</span>
+                </div>
+            </div>
+            
+            <div class="glassmorphism rounded-2xl p-4 app-card">
+                <img src="https://images.unsplash.com/photo-1512428813834-c702c7702b78?w=120&h=80&fit=crop" 
+                     alt="植物识别" class="w-full h-20 object-cover rounded-xl mb-3">
+                <!-- 图片来源: https://unsplash.com/photos/green-leafed-plant-512428813834-c702c7702b78 -->
+                <h5 class="text-white font-medium mb-1">植物识别</h5>
+                <p class="text-gray-400 text-xs mb-2">拍照识别植物</p>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-1">
+                        <span class="star-rating text-sm">★★★★★</span>
+                        <span class="text-gray-400 text-xs">4.9</span>
+                    </div>
+                    <span class="text-green-400 text-xs">免费</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 应用套装 -->
+    <div class="px-6 mb-6">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold text-white">热门套装</h3>
+            <button class="text-purple-300 text-sm">查看更多</button>
+        </div>
+        
+        <div class="space-y-4">
+            <div class="glassmorphism rounded-2xl p-4 app-card">
+                <div class="flex items-center justify-between mb-3">
+                    <h5 class="text-white font-medium">教师工具包</h5>
+                    <span class="px-2 py-1 bg-blue-500/20 text-blue-400 text-xs rounded-full">套装</span>
+                </div>
+                <p class="text-gray-400 text-sm mb-3">包含课程安排、学生管理、成绩统计等5个应用</p>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <span class="star-rating text-sm">★★★★☆ 4.7</span>
+                        <span class="text-gray-400 text-sm">1.2k 购买</span>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-green-400 font-medium">¥80/月</p>
+                        <p class="text-gray-400 text-xs line-through">¥120</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="glassmorphism rounded-2xl p-4 app-card">
+                <div class="flex items-center justify-between mb-3">
+                    <h5 class="text-white font-medium">跨境电商工具箱</h5>
+                    <span class="px-2 py-1 bg-purple-500/20 text-purple-400 text-xs rounded-full">套装</span>
+                </div>
+                <p class="text-gray-400 text-sm mb-3">定价监控、库存同步、汇率计算等专业工具</p>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <span class="star-rating text-sm">★★★★★ 4.9</span>
+                        <span class="text-gray-400 text-sm">856 购买</span>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-green-400 font-medium">¥80/月</p>
+                        <p class="text-gray-400 text-xs">每店铺</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 开发者推荐 -->
+    <div class="px-6 mb-6">
+        <div class="glassmorphism rounded-3xl p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold text-white">开发者推荐</h3>
+                <span class="px-3 py-1 bg-green-500/20 text-green-400 text-xs rounded-full">
+                    <i class="fas fa-code mr-1"></i>专业认证
+                </span>
+            </div>
+            
+            <div class="flex items-center space-x-4 mb-4">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=50&h=50&fit=crop&crop=face" 
+                     alt="开发者" class="w-12 h-12 rounded-full border-2 border-purple-400">
+                <!-- 图片来源: https://unsplash.com/photos/man-smiling-behind-wall-472099645785-5658abf4ff4e -->
+                <div>
+                    <h4 class="text-white font-medium">Alex Chen</h4>
+                    <p class="text-gray-400 text-sm">全栈开发者 • 4.9⭐ • 28个应用</p>
+                </div>
+            </div>
+            
+            <div class="glassmorphism rounded-2xl p-4">
+                <h5 class="text-white font-medium mb-2">AI写作助手</h5>
+                <p class="text-gray-400 text-sm mb-3">智能文案生成，支持多种写作风格</p>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-2">
+                        <span class="star-rating text-sm">★★★★★</span>
+                        <span class="text-gray-400 text-sm">新品上架</span>
+                    </div>
+                    <button class="bg-gradient-to-r from-green-500 to-blue-500 rounded-lg py-2 px-4 text-white text-sm">
+                        立即体验
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 统计数据 -->
+    <div class="px-6 mb-6">
+        <div class="glassmorphism rounded-3xl p-6">
+            <h3 class="text-lg font-semibold text-white mb-4">平台数据</h3>
+            <div class="grid grid-cols-3 gap-4">
+                <div class="text-center">
+                    <p class="text-2xl font-bold text-purple-400 download-counter">2,847</p>
+                    <p class="text-gray-400 text-xs">总应用数</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-2xl font-bold text-blue-400 download-counter">156k</p>
+                    <p class="text-gray-400 text-xs">总下载量</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-2xl font-bold text-green-400 download-counter">892</p>
+                    <p class="text-gray-400 text-xs">活跃开发者</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部空间 -->
+    <div class="h-24"></div>
+
+    <!-- 浮动操作按钮 -->
+    <div class="fixed bottom-6 right-6 space-y-3">
+        <button class="w-14 h-14 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center app-card shadow-lg">
+            <i class="fas fa-plus text-white text-xl"></i>
+        </button>
+        <button class="w-14 h-14 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center app-card shadow-lg">
+            <i class="fas fa-upload text-white text-xl"></i>
+        </button>
+    </div>
+</body>
+</html>

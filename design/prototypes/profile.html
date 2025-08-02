@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人中心 - Aha</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .glassmorphism {
+            background: rgba(139, 92, 246, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .profile-glow {
+            animation: profile-pulse 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes profile-pulse {
+            from { box-shadow: 0 0 30px rgba(139, 92, 246, 0.5); }
+            to { box-shadow: 0 0 50px rgba(139, 92, 246, 0.8), 0 0 70px rgba(16, 185, 129, 0.3); }
+        }
+
+        .achievement-shine {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .achievement-shine::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .level-progress {
+            animation: progress-fill 2s ease-out;
+        }
+
+        @keyframes progress-fill {
+            from { width: 0%; }
+            to { width: var(--progress); }
+        }
+
+        .stats-counter {
+            animation: count-animation 2s ease-out;
+        }
+
+        @keyframes count-animation {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .floating-avatar {
+            animation: avatar-float 6s ease-in-out infinite;
+        }
+
+        @keyframes avatar-float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .menu-item {
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateX(5px);
+            background: rgba(139, 92, 246, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 min-h-screen text-white">
+    <!-- 状态栏 -->
+    <div class="flex justify-between items-center px-6 py-2 text-sm">
+        <span class="text-purple-300 font-semibold">9:41</span>
+        <div class="flex items-center space-x-2">
+            <div class="flex space-x-1">
+                <div class="w-1 h-3 bg-purple-400 rounded-full"></div>
+                <div class="w-1 h-4 bg-purple-400 rounded-full"></div>
+                <div class="w-1 h-5 bg-purple-400 rounded-full"></div>
+                <div class="w-1 h-6 bg-purple-400 rounded-full"></div>
+            </div>
+            <i class="fas fa-wifi text-purple-400 text-sm"></i>
+            <div class="w-6 h-3 border border-purple-400 rounded-sm relative">
+                <div class="absolute inset-0.5 bg-gradient-to-r from-green-400 to-purple-500 rounded-sm"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 顶部导航 -->
+    <div class="flex items-center justify-between px-6 py-4">
+        <button class="glassmorphism rounded-full p-2">
+            <i class="fas fa-arrow-left text-purple-300"></i>
+        </button>
+        <h1 class="text-lg font-semibold text-white">个人中心</h1>
+        <div class="flex items-center space-x-2">
+            <button class="glassmorphism rounded-full p-2">
+                <i class="fas fa-edit text-purple-300"></i>
+            </button>
+            <button class="glassmorphism rounded-full p-2">
+                <i class="fas fa-cog text-purple-300"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- 用户信息卡片 -->
+    <div class="px-6 mb-6">
+        <div class="glassmorphism rounded-3xl p-6 profile-glow relative overflow-hidden">
+            <!-- 背景装饰 -->
+            <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-400/20 to-blue-400/20 rounded-full -mr-16 -mt-16"></div>
+            
+            <div class="relative z-10">
+                <div class="flex items-center space-x-4 mb-6">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face" 
+                         alt="用户头像" class="w-20 h-20 rounded-full border-3 border-purple-400 floating-avatar">
+                    <!-- 图片来源: https://unsplash.com/photos/a-man-in-a-blue-shirt-is-posing-for-a-picture-507003211169 -->
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-white mb-1">创想家 Alex</h3>
+                        <p class="text-purple-300 text-sm mb-2">@alexchen • 金牌工匠</p>
+                        <div class="flex items-center space-x-2">
+                            <span class="px-2 py-1 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full text-black text-xs font-bold">
+                                <i class="fas fa-crown mr-1"></i>Lv.15
+                            </span>
+                            <span class="text-green-400 text-sm">认证开发者</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 等级进度 -->
+                <div class="mb-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-gray-400 text-sm">经验值</span>
+                        <span class="text-purple-300 text-sm">8,247 / 10,000</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-2">
+                        <div class="bg-gradient-to-r from-purple-500 to-blue-500 h-2 rounded-full level-progress" 
+                             style="--progress: 82.5%; width: 82.5%;"></div>
+                    </div>
+                </div>
+
+                <!-- 用户统计 -->
+                <div class="grid grid-cols-4 gap-4">
+                    <div class="text-center stats-counter">
+                        <p class="text-2xl font-bold text-green-400">28</p>
+                        <p class="text-gray-400 text-xs">已发布应用</p>
+                    </div>
+                    <div class="text-center stats-counter">
+                        <p class="text-2xl font-bold text-blue-400">156k</p>
+                        <p class="text-gray-400 text-xs">总下载量</p>
+                    </div>
+                    <div class="text-center stats-counter">
+                        <p class="text-2xl font-bold text-purple-400">4.9</p>
+                        <p class="text-gray-400 text-xs">平均评分</p>
+                    </div>
+                    <div class="text-center stats-counter">
+                        <p class="text-2xl font-bold text-yellow-400">3.2w</p>
+                        <p class="text-gray-400 text-xs">粉丝数</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 成就徽章 -->
+    <div class="px-6 mb-6">
+        <div class="glassmorphism rounded-3xl p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold text-white">成就徽章</h3>
+                <button class="text-purple-300 text-sm">查看全部</button>
+            </div>
+            
+            <div class="grid grid-cols-4 gap-4">
+                <div class="achievement-shine glassmorphism rounded-2xl p-3 text-center">
+                    <div class="w-12 h-12 mx-auto mb-2 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center">
+                        <i class="fas fa-trophy text-white"></i>
+                    </div>
+                    <p class="text-yellow-400 text-xs">首次发布</p>
+                </div>
+                
+                <div class="achievement-shine glassmorphism rounded-2xl p-3 text-center">
+                    <div class="w-12 h-12 mx-auto mb-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center">
+                        <i class="fas fa-star text-white"></i>
+                    </div>
+                    <p class="text-purple-400 text-xs">五星好评</p>
+                </div>
+                
+                <div class="achievement-shine glassmorphism rounded-2xl p-3 text-center">
+                    <div class="w-12 h-12 mx-auto mb-2 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center">
+                        <i class="fas fa-users text-white"></i>
+                    </div>
+                    <p class="text-green-400 text-xs">万人使用</p>
+                </div>
+                
+                <div class="achievement-shine glassmorphism rounded-2xl p-3 text-center">
+                    <div class="w-12 h-12 mx-auto mb-2 bg-gradient-to-r from-pink-500 to-red-500 rounded-full flex items-center justify-center">
+                        <i class="fas fa-heart text-white"></i>
+                    </div>
+                    <p class="text-pink-400 text-xs">受欢迎</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 我的应用 -->
+    <div class="px-6 mb-6">
+        <div class="glassmorphism rounded-3xl p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold text-white">我的应用</h3>
+                <button class="text-purple-300 text-sm">管理应用</button>
+            </div>
+            
+            <div class="space-y-3">
+                <div class="flex items-center justify-between p-3 glassmorphism rounded-2xl">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gradient-to-r from-pink-400 to-red-400 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-baby text-white"></i>
+                        </div>
+                        <div>
+                            <h5 class="text-white font-medium">智能喂养助手</h5>
+                            <p class="text-gray-400 text-xs">2,847次使用 • 活跃</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-green-400 font-medium">¥1,423</p>
+                        <p class="text-gray-400 text-xs">本月</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center justify-between p-3 glassmorphism rounded-2xl">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gradient-to-r from-blue-400 to-purple-400 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-dumbbell text-white"></i>
+                        </div>
+                        <div>
+                            <h5 class="text-white font-medium">AI健身教练</h5>
+                            <p class="text-gray-400 text-xs">1,256次使用 • 活跃</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-green-400 font-medium">¥892</p>
+                        <p class="text-gray-400 text-xs">本月</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center justify-between p-3 glassmorphism rounded-2xl">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gradient-to-r from-green-400 to-emerald-400 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-leaf text-white"></i>
+                        </div>
+                        <div>
+                            <h5 class="text-white font-medium">植物识别器</h5>
+                            <p class="text-gray-400 text-xs">567次使用 • 开发中</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-blue-400 font-medium">75%</p>
+                        <p class="text-gray-400 text-xs">进度</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 功能菜单 -->
+    <div class="px-6 mb-6">
+        <div class="glassmorphism rounded-3xl p-6">
+            <div class="space-y-2">
+                <div class="menu-item flex items-center justify-between p-4 rounded-2xl">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-blue-500 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-wallet text-white"></i>
+                        </div>
+                        <span class="text-white font-medium">我的钱包</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-green-400 font-medium">¥3,247.85</span>
+                        <i class="fas fa-chevron-right text-gray-400"></i>
+                    </div>
+                </div>
+                
+                <div class="menu-item flex items-center justify-between p-4 rounded-2xl">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-chart-line text-white"></i>
+                        </div>
+                        <span class="text-white font-medium">数据分析</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400"></i>
+                </div>
+                
+                <div class="menu-item flex items-center justify-between p-4 rounded-2xl">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-users text-white"></i>
+                        </div>
+                        <span class="text-white font-medium">我的团队</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400"></i>
+                </div>
+                
+                <div class="menu-item flex items-center justify-between p-4 rounded-2xl">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-star text-white"></i>
+                        </div>
+                        <span class="text-white font-medium">收藏夹</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400"></i>
+                </div>
+                
+                <div class="menu-item flex items-center justify-between p-4 rounded-2xl">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gradient-to-r from-pink-500 to-red-500 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-cog text-white"></i>
+                        </div>
+                        <span class="text-white font-medium">设置</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400"></i>
+                </div>
+                
+                <div class="menu-item flex items-center justify-between p-4 rounded-2xl">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-question-circle text-white"></i>
+                        </div>
+                        <span class="text-white font-medium">帮助中心</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 会员升级 -->
+    <div class="px-6 mb-6">
+        <div class="glassmorphism rounded-3xl p-6 relative overflow-hidden">
+            <!-- 背景装饰 -->
+            <div class="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-yellow-500/10"></div>
+            
+            <div class="relative z-10">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <h3 class="text-lg font-semibold text-white mb-1">升级至专业版</h3>
+                        <p class="text-gray-400 text-sm">解锁更多高级功能</p>
+                    </div>
+                    <div class="w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center">
+                        <i class="fas fa-crown text-white"></i>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-3 gap-4 mb-4">
+                    <div class="text-center">
+                        <p class="text-yellow-400 font-bold">∞</p>
+                        <p class="text-gray-400 text-xs">应用数量</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-yellow-400 font-bold">24/7</p>
+                        <p class="text-gray-400 text-xs">专属客服</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-yellow-400 font-bold">0%</p>
+                        <p class="text-gray-400 text-xs">平台抽成</p>
+                    </div>
+                </div>
+                
+                <button class="w-full bg-gradient-to-r from-yellow-400 to-orange-400 rounded-2xl py-3 px-6 text-black font-semibold">
+                    <i class="fas fa-crown mr-2"></i>
+                    立即升级 ¥99/月
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部空间 -->
+    <div class="h-24"></div>
+
+    <!-- 浮动操作按钮 -->
+    <div class="fixed bottom-6 right-6 space-y-3">
+        <button class="w-14 h-14 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center floating-avatar shadow-lg">
+            <i class="fas fa-plus text-white text-xl"></i>
+        </button>
+        <button class="w-14 h-14 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center floating-avatar shadow-lg">
+            <i class="fas fa-share text-white text-xl"></i>
+        </button>
+    </div>
+</body>
+</html>
