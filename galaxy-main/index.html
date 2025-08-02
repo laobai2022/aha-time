@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galaxy UI Components - Navigation</title>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #f43f5e;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --bg-light: #f8fafc;
+            --bg-white: #ffffff;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 0.5rem;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-top: 2rem;
+        }
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            letter-spacing: -0.025em;
+        }
+        p {
+            font-size: 1.125rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .navigation {
+            background-color: var(--bg-white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+            transition: var(--transition);
+        }
+
+        .navigation:hover {
+            box-shadow: var(--shadow-lg);
+        }
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-title i {
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        .nav-link {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            text-decoration: none;
+            transition: var(--transition);
+            flex: 1 1 150px;
+            text-align: center;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .nav-link:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        .section {
+            background-color: var(--bg-white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            margin-bottom: 3rem;
+            transition: var(--transition);
+        }
+
+        .section:hover {
+            box-shadow: var(--shadow-lg);
+        }
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 0.75rem;
+            color: var(--secondary);
+        }
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .component-card {
+            border: 1px solid #e2e8f0;
+            border-radius: var(--radius);
+            padding: 1.25rem;
+            transition: var(--transition);
+            background-color: var(--bg-white);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .component-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+        .component-title {
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .component-title i {
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+        .component-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: auto;
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+        .component-link:hover {
+            text-decoration: underline;
+            color: var(--primary-dark);
+        }
+
+        .component-link i {
+            margin-left: 0.35rem;
+            font-size: 0.85rem;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 4rem 2rem;
+            border-radius: var(--radius);
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+        }
+
+        .btn-primary {
+            background-color: white;
+            color: var(--primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            transform: translateY(-2px);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .badge-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .badge-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .component-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>Galaxy UI Components</h1>
+            <p>A curated collection of beautiful, functional, and responsive UI components for modern web applications</p>
+            <a href="#components" class="btn-primary"><i class="fa fa-th-large"></i> Explore Components</a>
+        </div>
+
+        <header id="components">
+            <h1>Browse Components</h1>
+            <p>Discover ready-to-use UI elements for your next project</p>
+        </header>
+
+        <div class="navigation">
+            <h2 class="nav-title"><i class="fa fa-compass"></i> Quick Navigation</h2>
+            <div class="nav-links">
+                <a href="#buttons" class="nav-link"><i class="fa fa-button"></i> Buttons</a>
+                <a href="#cards" class="nav-link"><i class="fa fa-id-card"></i> Cards</a>
+                <a href="#checkboxes" class="nav-link"><i class="fa fa-check-square-o"></i> Checkboxes</a>
+                <a href="#forms" class="nav-link"><i class="fa fa-wpforms"></i> Forms</a>
+                <a href="#inputs" class="nav-link"><i class="fa fa-keyboard-o"></i> Inputs</a>
+                <a href="#loaders" class="nav-link"><i class="fa fa-spinner"></i> Loaders</a>
+                <a href="#notifications" class="nav-link"><i class="fa fa-bell"></i> Notifications</a>
+                <a href="#radio-buttons" class="nav-link"><i class="fa fa-dot-circle-o"></i> Radio Buttons</a>
+                <a href="#toggle-switches" class="nav-link"><i class="fa fa-toggle-on"></i> Toggle Switches</a>
+                <a href="#tooltips" class="nav-link"><i class="fa fa-lightbulb-o"></i> Tooltips</a>
+            </div>
+        </div>
+
+        <div id="buttons" class="section">
+            <h2 class="section-title"><i class="fa fa-button"></i> Buttons <span class="badge badge-primary">40+</span></h2>
+            <div class="component-grid">
+                <div class="component-card">
+                    <div class="component-title"><i class="fa fa-hand-pointer-o"></i> 1osm_rude-panda-79</div>
+                    <a href="galaxy-main/Buttons/1osm_rude-panda-79.html" class="component-link">View Component <i class="fa fa-arrow-right"></i></a>
+                </div>
+                <div class="component-card">
+                    <div class="component-title"><i class="fa fa-hand-pointer-o"></i> AqFox_fat-ladybug-84</div>
+                    <a href="galaxy-main/Buttons/AqFox_fat-ladybug-84.html" class="component-link">View Component <i class="fa fa-arrow-right"></i></a>
+                </div>
+                <div class="component-card">
+                    <div class="component-title"><i class="fa fa-hand-pointer-o"></i> AqFox_happy-zebra-99</div>
+                    <a href="galaxy-main/Buttons/AqFox_happy-zebra-99.html" class="component-link">View Component <i class="fa fa-arrow-right"></i></a>
+                </div>
+                <div class="component-card">
+                    <div class="component-title"><i class="fa fa-hand-pointer-o"></i> AqFox_nervous-crab-0</div>
+                    <a href="galaxy-main/Buttons/AqFox_nervous-crab-0.html" class="component-link">View Component <i class="fa fa-arrow-right"></i></a>
+                </div>
+                <div class="component-card">
+                    <div class="component-title"><i class="fa fa-hand-pointer-o"></i> Bodyhc_rude-otter-33</div>
+                    <a href="galaxy-main/Buttons/Bodyhc_rude-otter-33.html" class="component-link">View Component <i class="fa fa-arrow-right"></i></a>
+                </div>
+                <div class="component-card">
+                    <div class="component-title"><i class="fa fa-hand-pointer-o"></i> Bodyhc_smart-puma-31</div>
+                    <a href="galaxy-main/Buttons/Bodyhc_smart-puma-31.html" class="component-link">View Component <i class="fa fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div id="cards" class="section">
+            <h2 class="section-title"><i class="fa fa-id-card"></i> Cards <span class="badge badge-primary">60+</span></h2>
+            <div class="component-grid">
+                <div class="component-card">
+                    <div class="component-title"><i class="fa fa-credit-card"></i> 1osm_funny-cat-84</div>
+                    <a href="galaxy-main/Cards/1osm_funny-cat-84.html" class="component-link">View Component <i class="fa fa-arrow-right"></i></a>
+                </div>
+                <div class="component-card">
+                    <div class="component-title"><i class="fa fa-credit-card"></i> 1osm_afraid-mouse-29</div>
+                    <a href="galaxy-main/Cards/1osm_afraid-mouse-29.html" class="component-link">View Component <i class="fa fa-arrow-right"></i></a>
+                </div>
+                <div class="component-card">
+                    <div class="component-title"><i class="fa fa-credit-card"></i> 1osm_light-chipmunk-10</div>
+                    <a href="galaxy-main/Cards/1osm_light-chipmunk-10.html" class="component-link">View Component <i class="fa fa-arrow-right"></i></a>
+                </div>
+                <div class="component-card">
+                    <div class="component-title"><i class="fa fa-credit-card"></i> Bodyhc_bitter-zebra-88</div>
+                    <a href="galaxy-main/Cards/Bodyhc_bitter-zebra-88.html" class="component-link">View Component <i class="fa fa-arrow-right"></i></a>
+                </div>
+                <div class="component-card">
+                    <div class="component-title"><i class="fa fa-credit-card"></i> ClawHack1_loud-cat-92</div>
+                    <a href="galaxy-main/Cards/ClawHack1_loud-cat-92.html" class="component-link">View Component <i class="fa fa-arrow-right"></i></a>
+                </div>
+                <div class="component-card">
+                    <div class="component-title"><i class="fa fa-credit-card"></i> Cobp_itchy-ape-77</div>
+                    <a href="galaxy-main/Cards/Cobp_itchy-ape-77.html" class="component-link">View Component <i class="fa fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div id="forms" class="section">
+            <h2 class="section-title"><i class="fa fa-wpforms"></i> Forms <span class="badge badge-primary">15+</span></h2>
+            <div class="component-grid">
+                <div class="component-card">
+                    <div class="component-title"><i class="fa fa-list-alt"></i> D3OXY_short-panther-37</div>
+                    <a href="galaxy-main/Forms/D3OXY_short-panther-37.html" class="component-link">View Component <i class="fa fa-arrow-right"></i></a>
+                </div>
+                <div class="component-card">
+                    <div class="component-title"><i class="fa fa-list-alt"></i> Galahhad_proud-fox-45</div>
+                    <a href="galaxy-main/Forms/Galahhad_proud-fox-45.html" class="component-link">View Component <i class="fa fa-arrow-right"></i></a>
+                </div>
+                <div class="component-card">
+                    <div class="component-title"><i class="fa fa-list-alt"></i> JkHuger_afraid-frog-82</div>
+                    <a href="galaxy-main/Forms/JkHuger_afraid-frog-82.html" class="component-link">View Component <i class="fa fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div id="inputs" class="section">
+            <h2 class="section-title"><i class="fa fa-keyboard-o"></i> Inputs <span class="badge badge-primary">20+</span></h2>
+            <div class="component-grid">
+                <div class="component-card">
+                    <div class="component-title"><i class="fa fa-keyboard-o"></i> 1osm_pretty-frog-15</div>
+                    <a href="galaxy-main/Inputs/1osm_pretty-frog-15.html" class="component-link">View Component <i class="fa fa-arrow-right"></i></a>
+                </div>
+                <div class="component-card">
+                    <div class="component-title"><i class="fa fa-keyboard-o"></i> Alanav29_tough-ape-65</div>
+                    <a href="galaxy-main/Inputs/Alanav29_tough-ape-65.html" class="component-link">View Component <i class="fa fa-arrow-right"></i></a>
+                </div>
+                <div class="component-card">
+                    <div class="component-title"><i class="fa fa-keyboard-o"></i> Bodyhc_afraid-eel-42</div>
+                    <a href="galaxy-main/Inputs/Bodyhc_afraid-eel-42.html" class="component-link">View Component <i class="fa fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div id="loaders" class="section">
+            <h2 class="section-title"><i class="fa fa-spinner"></i> Loaders <span class="badge badge-primary">25+</span></h2>
+            <div class="component-grid">
+                <div class="component-card">
+                    <div class="component-title"><i class="fa fa-circle-o-notch"></i> AqFox_clever-eel-67</div>
+                    <a href="galaxy-main/loaders/AqFox_clever-eel-67.html" class="component-link">View Component <i class="fa fa-arrow-right"></i></a>
+                </div>
+                <div class="component-card">
+                    <div class="component-title"><i class="fa fa-circle-o-notch"></i> AqFox_fast-bat-33</div>
+                    <a href="galaxy-main/loaders/AqFox_fast-bat-33.html" class="component-link">View Component <i class="fa fa-arrow-right"></i></a>
+                </div>
+                <div class="component-card">
+                    <div class="component-title"><i class="fa fa-circle-o-notch"></i> DSB2004_ugly-yak-77</div>
+                    <a href="galaxy-main/loaders/DSB2004_ugly-yak-77.html" class="component-link">View Component <i class="fa fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <footer style="text-align: center; padding: 2rem 0; margin-top: 4rem; border-top: 1px solid #e2e8f0;">
+            <p>Galaxy UI Components - A collection of beautiful and functional UI elements</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-light);">© 2025 All rights reserved</p>
+        </footer>
+
+        <button id="backToTop" style="position: fixed; bottom: 2rem; right: 2rem; background-color: var(--primary); color: white; border: none; border-radius: 50%; width: 3rem; height: 3rem; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: var(--shadow); transition: var(--transition); opacity: 0; visibility: hidden;">
+            <i class="fa fa-arrow-up"></i>
+        </button>
+
+        <script>
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Back to top button
+            const backToTopButton = document.getElementById('backToTop');
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.style.opacity = '1';
+                    backToTopButton.style.visibility = 'visible';
+                } else {
+                    backToTopButton.style.opacity = '0';
+                    backToTopButton.style.visibility = 'hidden';
+                }
+            });
+
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        </script>
+    </div>
+</body>
+</html>
